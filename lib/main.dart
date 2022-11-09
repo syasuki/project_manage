@@ -10,12 +10,11 @@ void main() {
 class MainView extends StatelessWidget {
   const MainView({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-      home: BaseTabView(),
+        home: BaseTabView(),
     );
   }
 }
