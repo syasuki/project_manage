@@ -14,11 +14,9 @@ final allFilterKey = UniqueKey();
 
 /// Creates a [TodoList] and initialise it with pre-defined values.
 final todoListProvider = StateNotifierProvider<TodoList, List<Todo>>((ref) {
-  return TodoList(const [
-    Todo(id: 'todo-0', description: 'hi'),
-    Todo(id: 'todo-1', description: 'hello'),
-    Todo(id: 'todo-2', description: 'bonjour'),
-  ]);
+  var todoList = TodoList();
+  todoList.initGet();
+  return todoList;
 });
 
 /// The different ways to filter the list of todos

@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:uuid/uuid.dart';
 
+import '../entity/todo_entity.dart';
+import '../translator/todo_translator.dart';
+
 const _uuid = Uuid();
 
 /// A read-only description of a todo-item
@@ -25,7 +28,16 @@ class Todo {
 
 /// An object that controls a list of [Todo].
 class TodoList extends StateNotifier<List<Todo>> {
-  TodoList([List<Todo>? initialTodos]) : super(initialTodos ?? []);
+  TodoList() : super([]);
+
+  Future<List<Todo>> init() async {
+    var entity = await TodoEntity.get();
+    return TodoTranslator.todoConvert(entity);
+  }
+  Future<void> initGet() async {
+    var entity = await TodoEntity.get();
+    state = TodoTranslator.todoConvert(entity);
+  }
 
   void add(String description) {
     state = [

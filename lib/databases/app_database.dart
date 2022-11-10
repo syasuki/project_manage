@@ -9,6 +9,8 @@ class AppDatabase {
       onCreate: (db, version) async {
         await db.execute(
             "CREATE TABLE todo(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,text TEXT,dueDate TEXT)");
+        await db.execute(
+            "insert into todo (id,title,text,dueDate)values(1, 'todo', '内容','$date')");
         /*
         await db.execute(
             "CREATE TABLE category(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,text TEXT,createdAt TEXT)");
