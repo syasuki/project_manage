@@ -219,7 +219,7 @@ class TodoItem extends HookConsumerWidget {
             // Commit changes only when the textfield is unfocused, for performance
             ref
                 .read(todoListProvider.notifier)
-                .edit(id: todo.id, description: textEditingController.text);
+                .edit(todo,textEditingController.text);
           }
         },
         child: ListTile(

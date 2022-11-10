@@ -15,4 +15,8 @@ class TodoTranslator {
     }
     return todoList;
   }
+  static TodoEntity todoModelConvert(Todo model, String description) {
+    var entity = TodoEntity(id: model.id ,title: "", text: description, dueDate: DateTime.now());
+    return entity;
+  }
 }
