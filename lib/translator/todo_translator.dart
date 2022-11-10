@@ -9,7 +9,7 @@ class TodoTranslator {
   static List<Todo> todoConvert(List<TodoEntity> entityList) {
     var todoList = <Todo>[];
     for (var entity in entityList) {
-      var todo = Todo(id: entity.id.toString(),
+      var todo = Todo(id: entity.id!,
         description: entity.text);
       todoList.add(todo);
     }

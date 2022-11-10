@@ -5,8 +5,6 @@ import 'package:uuid/uuid.dart';
 import '../entity/todo_entity.dart';
 import '../translator/todo_translator.dart';
 
-const _uuid = Uuid();
-
 /// A read-only description of a todo-item
 @immutable
 class Todo {
@@ -16,7 +14,7 @@ class Todo {
     this.completed = false,
   });
 
-  final String id;
+  final int id;
   final String description;
   final bool completed;
 
@@ -43,13 +41,13 @@ class TodoList extends StateNotifier<List<Todo>> {
     state = [
       ...state,
       Todo(
-        id: _uuid.v4(),
+        id: 1,
         description: description,
       ),
     ];
   }
 
-  void toggle(String id) {
+  void toggle(int id) {
     state = [
       for (final todo in state)
         if (todo.id == id)
@@ -63,7 +61,7 @@ class TodoList extends StateNotifier<List<Todo>> {
     ];
   }
 
-  void edit({required String id, required String description}) {
+  void edit({required int id, required String description}) {
     state = [
       for (final todo in state)
         if (todo.id == id)
