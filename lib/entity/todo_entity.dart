@@ -1,3 +1,4 @@
+import 'package:pro_sche/util/date_extention.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../databases/app_database.dart';
@@ -6,7 +7,7 @@ class TodoEntity {
   final int? id;
   final String title;
   final String text;
-  DateTime dueDate = DateTime.now();
+  DateTime dueDate = DateExtention.dateOnlyNow();
 
   TodoEntity(
       {this.id,

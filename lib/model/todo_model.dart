@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 
 import '../entity/todo_entity.dart';
 import '../translator/todo_translator.dart';
+import '../util/date_extention.dart';
 
 /// A read-only description of a todo-item
 @immutable
@@ -52,7 +53,7 @@ class TodoList extends StateNotifier<List<Todo>> {
     ];
   }*/
   Future<void> add(String description) async {
-    var entity = TodoEntity(title: 'title', text: description, dueDate: DateTime.now());
+    var entity = TodoEntity(title: 'title', text: description, dueDate: DateExtention.dateOnlyNow());
     await TodoEntity.insert(entity);
 
     var ret = await TodoEntity.get();
