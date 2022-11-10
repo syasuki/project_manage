@@ -10,7 +10,9 @@ class TodoTranslator {
     var todoList = <Todo>[];
     for (var entity in entityList) {
       var todo = Todo(id: entity.id!,
-        description: entity.text);
+        description: entity.text,
+        targetDate: entity.dueDate
+      );
       todoList.add(todo);
     }
     return todoList;

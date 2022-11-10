@@ -63,6 +63,7 @@ class CalenderModel extends StateNotifier<List<Todo>> {
             id: todo.id,
             completed: !todo.completed,
             description: todo.description,
+            targetDate: todo.targetDate
           )
         else
           todo,

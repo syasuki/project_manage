@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pro_sche/translator/calender_translator.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:uuid/uuid.dart';
 
@@ -11,12 +12,14 @@ class Todo {
   const Todo({
     required this.description,
     required this.id,
+    required this.targetDate,
     this.completed = false,
   });
 
   final int id;
   final String description;
   final bool completed;
+  final DateTime targetDate;
 
   @override
   String toString() {
@@ -51,7 +54,9 @@ class TodoList extends StateNotifier<List<Todo>> {
   Future<void> add(String description) async {
     var entity = TodoEntity(title: 'title', text: description, dueDate: DateTime.now());
     await TodoEntity.insert(entity);
+
     var ret = await TodoEntity.get();
+    CalenderTranslator.todoConvert(ret);
     state = TodoTranslator.todoConvert(ret);
   }
 
@@ -63,6 +68,7 @@ class TodoList extends StateNotifier<List<Todo>> {
             id: todo.id,
             completed: !todo.completed,
             description: todo.description,
+            targetDate: todo.targetDate,
           )
         else
           todo,
