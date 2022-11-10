@@ -7,20 +7,12 @@ class TodoEntity {
   final String title;
   final String text;
   DateTime dueDate = DateTime.now();
-  final int hour;
-  final int minutes;
-  int isAllday = 0;
-  String? imagePass = '';
 
   TodoEntity(
       {this.id,
         required this.title,
         required this.text,
-        required this.dueDate,
-        required this.hour,
-        required this.minutes,
-        required this.isAllday,
-        required this.imagePass});
+        required this.dueDate});
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,16 +20,12 @@ class TodoEntity {
       'title': title,
       'text': text,
       "dueDate": dueDate.toUtc().toIso8601String(),
-      'hour': hour,
-      'minutes': minutes,
-      'isAllday': isAllday,
-      'imagePass': imagePass,
     };
   }
 
   @override
   String toString() {
-    return 'TodoEntity{id: $id,title: $title ,text: $text,dueDate: $dueDate.toUtc().toIso8601String(),hour: $hour,minutes:$minutes,isAllday:$isAllday,imagePass : $imagePass}';
+    return 'TodoEntity{id: $id,title: $title ,text: $text,dueDate: $dueDate.toUtc().toIso8601String()}';
   }
 
   static Future<void> insert(TodoEntity entity) async {
@@ -57,11 +45,7 @@ class TodoEntity {
           id: maps[i]['id'],
           title: maps[i]['title'],
           text: maps[i]['text'],
-          dueDate: DateTime.parse(maps[i]['dueDate']).toLocal(),
-          hour: maps[i]['hour'],
-          minutes: maps[i]['minutes'],
-          isAllday: maps[i]['isAllday'],
-          imagePass: maps[i]['imagePass']);
+          dueDate: DateTime.parse(maps[i]['dueDate']).toLocal());
     });
   }
 
