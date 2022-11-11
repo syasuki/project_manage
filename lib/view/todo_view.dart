@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
-
 import '../model/todo_model.dart';
 
 
@@ -80,58 +78,60 @@ class Home extends HookConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-          children: [
-            //const Title(),
-            TextField(
-              key: addTodoKey,
-              controller: newTodoController,
-              decoration: const InputDecoration(
-                labelText: 'What needs to be done?',
-              ),
-              onSubmitted: (value) {
-                //ref.read(todoListProvider.notifier).add(newTodoController.text);
-                //newTodoController.clear();
-              },
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.black87,
-              ),
-              child: Text(outputFormat.format(ref.watch(dateProvider))),
-              onPressed: onPressedRaisedButton,
-            ),
-            ElevatedButton(
-              child: const Text('追加'),
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xff9941d8).withOpacity(0.6),
-                onPrimary: Colors.white,
-              ),
-              onPressed: () {
-                ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
-                newTodoController.clear();
-              },
-            ),
-            const SizedBox(height: 42),
-            const Toolbar(),
-            if (todos.isNotEmpty) const Divider(height: 0),
-            for (var i = 0; i < todos.length; i++) ...[
-              if (i > 0) const Divider(height: 0),
-              Dismissible(
-                key: ValueKey(todos[i].id),
-                onDismissed: (_) {
-                  ref.read(todoListProvider.notifier).remove(todos[i]);
-                },
-                child: ProviderScope(
-                  overrides: [
-                    _currentTodo.overrideWithValue(todos[i]),
-                  ],
-                  child: const TodoItem(),
+        body: Scrollbar(
+          child:ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            children: [
+              //const Title(),
+              TextField(
+                key: addTodoKey,
+                controller: newTodoController,
+                decoration: const InputDecoration(
+                  labelText: 'What needs to be done?',
                 ),
-              )
+                onSubmitted: (value) {
+                  //ref.read(todoListProvider.notifier).add(newTodoController.text);
+                  //newTodoController.clear();
+                },
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.black87,
+                ),
+                child: Text(outputFormat.format(ref.watch(dateProvider))),
+                onPressed: onPressedRaisedButton,
+              ),
+              ElevatedButton(
+                child: const Text('追加'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff9941d8).withOpacity(0.6),
+                  onPrimary: Colors.white,
+                ),
+                onPressed: () {
+                  ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
+                  newTodoController.clear();
+                },
+              ),
+              const SizedBox(height: 42),
+              const Toolbar(),
+              if (todos.isNotEmpty) const Divider(height: 0),
+              for (var i = 0; i < todos.length; i++) ...[
+                if (i > 0) const Divider(height: 0),
+                Dismissible(
+                  key: ValueKey(todos[i].id),
+                  onDismissed: (_) {
+                    ref.read(todoListProvider.notifier).remove(todos[i]);
+                  },
+                  child: ProviderScope(
+                    overrides: [
+                      _currentTodo.overrideWithValue(todos[i]),
+                    ],
+                    child: const TodoItem(),
+                  ),
+                )
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -255,8 +255,7 @@ class TodoItem extends HookConsumerWidget {
             textEditingController.text = todo.description;
           } else {
             // Commit changes only when the textfield is unfocused, for performance
-            ref
-                .read(todoListProvider.notifier)
+            ref.read(todoListProvider.notifier)
                 .edit(todo,textEditingController.text);
           }
         },

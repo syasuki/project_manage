@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class CalendarPageView extends StatefulWidget {
+final _currentIndex = StateProvider<int>((ref) {
+  return 1200;
+});
+
+class CalendarPageView extends HookConsumerWidget {
   const CalendarPageView({Key? key}) : super(key: key);
 
   @override
-  _CalendarPageViewState createState() => _CalendarPageViewState();
-}
-
-class _CalendarPageViewState extends State<CalendarPageView> {
-  int _currentIndex = 1200;
-  @override
-  Widget build(BuildContext context) {
-    final visibleMonth = _currentIndex.visibleDateTime.month.monthName;
-    final visibleYear = _currentIndex.visibleDateTime.year.toString();
+  Widget build(BuildContext context,WidgetRef ref) {
+    final visibleMonth = ref.watch(_currentIndex).visibleDateTime.month.monthName;
+    final visibleYear = ref.watch(_currentIndex).visibleDateTime.year.toString();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,9 +31,7 @@ class _CalendarPageViewState extends State<CalendarPageView> {
             },
     scrollDirection:Axis.vertical,
             onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
+                ref.read(_currentIndex.notifier).state = index;
             },
           ),
         ),
@@ -43,7 +40,7 @@ class _CalendarPageViewState extends State<CalendarPageView> {
   }
 }
 
-class CalendarPage extends StatelessWidget {
+class CalendarPage extends HookConsumerWidget {
   const CalendarPage(
       this.visiblePageDate, {
         Key? key,
@@ -66,7 +63,7 @@ class CalendarPage extends StatelessWidget {
     return firstDayOfTheMonth.add(firstDayOfTheMonth.weekday.daysDuration);
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final currentDates = _getCurrentDates(visiblePageDate);
     return Column(
       children: [
@@ -105,9 +102,9 @@ const List<String> _DaysOfTheWeek = [
 ];
 
 /// 曜日のラベルを横並びに表示する。
-class DaysOfTheWeek extends StatelessWidget {
+class DaysOfTheWeek extends HookConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Row(
       children: _DaysOfTheWeek.map((day) {
         return Expanded(
@@ -126,7 +123,7 @@ class DaysOfTheWeek extends StatelessWidget {
 }
 
 /// 1列で1週間を表すため、[DateCell]を7つ並べる。
-class DatesRow extends StatelessWidget {
+class DatesRow extends HookConsumerWidget {
   const DatesRow({
     required this.dates,
     Key? key,
@@ -135,7 +132,7 @@ class DatesRow extends StatelessWidget {
   final List<DateTime> dates;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: Row(
         children: dates.map((date) {
@@ -146,13 +143,13 @@ class DatesRow extends StatelessWidget {
   }
 }
 
-class _DateCell extends StatelessWidget {
+class _DateCell extends HookConsumerWidget {
   _DateCell(this.date);
 
   final DateTime date;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: DecoratedBox(
         decoration: BoxDecoration(
