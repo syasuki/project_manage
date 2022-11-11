@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 import '../model/todo_model.dart';
@@ -48,6 +49,9 @@ final filteredTodos = Provider<List<Todo>>((ref) {
       return todos;
   }
 });
+final dateProvider = StateProvider<DateTime>((ref) {
+  return DateTime.now();
+});
 
 
 class Home extends HookConsumerWidget {
@@ -57,6 +61,21 @@ class Home extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(filteredTodos);
     final newTodoController = useTextEditingController();
+
+    var outputFormat = DateFormat('yyyy-MM-dd');
+
+    void onPressedRaisedButton() async {
+      final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: ref.watch(dateProvider),
+          firstDate: new DateTime(2018),
+          lastDate: new DateTime.now().add(new Duration(days: 360))
+      );
+      if (picked != null) {
+        ref.read(dateProvider.notifier).state = picked;
+      }
+    }
+
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -72,7 +91,25 @@ class Home extends HookConsumerWidget {
                 labelText: 'What needs to be done?',
               ),
               onSubmitted: (value) {
-                ref.read(todoListProvider.notifier).add(value);
+                //ref.read(todoListProvider.notifier).add(newTodoController.text);
+                //newTodoController.clear();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                primary: Colors.black87,
+              ),
+              child: Text(outputFormat.format(ref.watch(dateProvider))),
+              onPressed: onPressedRaisedButton,
+            ),
+            ElevatedButton(
+              child: const Text('追加'),
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xff9941d8).withOpacity(0.6),
+                onPrimary: Colors.white,
+              ),
+              onPressed: () {
+                ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
                 newTodoController.clear();
               },
             ),
@@ -204,6 +241,7 @@ class TodoItem extends HookConsumerWidget {
     final itemFocusNode = useFocusNode();
     final itemIsFocused = useIsFocused(itemFocusNode);
 
+    var outputFormat = DateFormat('yyyy-MM-dd');
     final textEditingController = useTextEditingController();
     final textFieldFocusNode = useFocusNode();
 
@@ -239,6 +277,7 @@ class TodoItem extends HookConsumerWidget {
             controller: textEditingController,
           )
               : Text(todo.description),
+          trailing: Text(outputFormat.format(todo.targetDate)),
         ),
       ),
     );

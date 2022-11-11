@@ -52,8 +52,8 @@ class TodoList extends StateNotifier<List<Todo>> {
       ),
     ];
   }*/
-  Future<void> add(String description) async {
-    var entity = TodoEntity(title: 'title', text: description, dueDate: DateExtention.dateOnlyNow());
+  Future<void> add(String description,DateTime targetDate) async {
+    var entity = TodoEntity(title: 'title', text: description, dueDate: targetDate);
     await TodoEntity.insert(entity);
 
     var ret = await TodoEntity.get();
