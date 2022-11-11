@@ -57,7 +57,7 @@ class TodoList extends StateNotifier<List<Todo>> {
     await TodoEntity.insert(entity);
 
     var ret = await TodoEntity.get();
-    CalenderTranslator.todoConvert(ret);
+    //CalenderTranslator.todoConvert(ret);
     state = TodoTranslator.todoConvert(ret);
   }
 

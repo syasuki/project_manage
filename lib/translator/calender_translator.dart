@@ -7,7 +7,7 @@ import 'package:pro_sche/util/date_extention.dart';
 import '../entity/todo_entity.dart';
 
 class CalenderTranslator {
-  static List<CalenderCell> todoConvert(List<TodoEntity> entityList) {
+  static List<CalenderCell> calenderConvert(List<TodoEntity> entityList) {
     var calenderList = <CalenderCell>[];
 
 

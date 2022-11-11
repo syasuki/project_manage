@@ -1,9 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pro_sche/model/calender_model.dart';
 
 final _currentIndex = StateProvider<int>((ref) {
   return 1200;
+});
+final calenderListProvider = StateNotifierProvider<CalenderModel, List<CalenderCell>>((ref) {
+  var calenderList = CalenderModel();
+  calenderList.initGet();
+  return calenderList;
 });
 
 class CalendarPageView extends HookConsumerWidget {
@@ -163,6 +169,10 @@ class _DateCell extends HookConsumerWidget {
           children: [
             Text(date.year.toString() + date.day.toString()),
 
+            for(int i = 0; i < ref.watch(calenderListProvider).length; i++) ... {
+
+              Text(ref.watch(calenderListProvider)[i].targetDate.day.toString())
+            },
             ifText(date.day.toString() == "20")
           ],
         ),
