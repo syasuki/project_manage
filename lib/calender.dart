@@ -170,17 +170,41 @@ class _DateCell extends HookConsumerWidget {
             Text(date.year.toString() + date.day.toString()),
 
             for(int i = 0; i < ref.watch(calenderListProvider).length; i++) ... {
+              ifText((date.day == ref.watch(calenderListProvider)[i].targetDate.day &&
+                  date.month == ref.watch(calenderListProvider)[i].targetDate.month &&
+                  date.year == ref.watch(calenderListProvider)[i].targetDate.year),ref.watch(calenderListProvider)[i])
 
-              Text(ref.watch(calenderListProvider)[i].targetDate.day.toString())
             },
-            ifText(date.day.toString() == "20")
+
           ],
         ),
       ),
     );
   }
 }
-Widget ifText(bool value) {
+Widget ifText(bool value,CalenderCell cell) {
+
+  if(value){
+    return Column(
+      children: [
+        //Text(date.year.toString() + date.day.toString()),
+
+        for(int i = 0; i < cell.todoList.length; i++) ... {
+          Text(cell.todoList[i].description)
+        }
+      ],
+    );
+  }else{
+    return Column(
+      children: [
+
+      ],
+    );
+  }
+
+}
+
+Widget ifText2(bool value) {
   if (value) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8),
@@ -198,6 +222,7 @@ Widget ifText(bool value) {
     return const Text("b");
   }
 }
+
 
 extension DateExtension on int {
 
