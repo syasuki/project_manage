@@ -39,6 +39,10 @@ class CalenderModel extends StateNotifier<List<CalenderCell>> {
     var entity = await TodoEntity.get();
     state = CalenderTranslator.calenderConvert(entity);
   }
+  Future<void> get() async {
+    var entity = await TodoEntity.get();
+    state = CalenderTranslator.calenderConvert(entity);
+  }
 
   Future<void> add(String description) async {
     var entity = TodoEntity(title: 'title', text: description, dueDate: DateTime.now());

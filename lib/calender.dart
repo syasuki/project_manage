@@ -167,7 +167,7 @@ class _DateCell extends HookConsumerWidget {
         ),
         child: Column(
           children: [
-            Text(date.year.toString() + date.day.toString()),
+            Text(date.day.toString()),
 
             for(int i = 0; i < ref.watch(calenderListProvider).length; i++) ... {
               ifText((date.day == ref.watch(calenderListProvider)[i].targetDate.day &&
@@ -190,7 +190,18 @@ Widget ifText(bool value,CalenderCell cell) {
         //Text(date.year.toString() + date.day.toString()),
 
         for(int i = 0; i < cell.todoList.length; i++) ... {
-          Text(cell.todoList[i].description)
+          Padding(
+            padding: EdgeInsets.only(bottom: 1),
+              child:
+                Container(width: double.infinity,
+                  color: Colors.red,
+                  child:Text(
+                    cell.todoList[i].description,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white70),
+              ),
+            ),
+          )
         }
       ],
     );
