@@ -124,6 +124,7 @@ class Home extends HookConsumerWidget {
                   key: ValueKey(todos[i].id),
                   onDismissed: (_) {
                     ref.read(todoListProvider.notifier).remove(todos[i]);
+                    ref.read(calenderListProvider.notifier).get();
                   },
                   child: ProviderScope(
                     overrides: [
@@ -295,7 +296,6 @@ bool useIsFocused(FocusNode node) {
       void listener() {
         isFocused.value = node.hasFocus;
       }
-
       node.addListener(listener);
       return () => node.removeListener(listener);
     },
