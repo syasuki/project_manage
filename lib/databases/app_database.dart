@@ -1,9 +1,10 @@
 import 'package:path/path.dart';
+import 'package:pro_sche/util/date_extention.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AppDatabase {
   static Future<Database> get database async {
-    var date = DateTime.now().toUtc().toIso8601String();
+    var date = DateExtention.dateOnlyNow().toUtc().toIso8601String();
     final Future<Database> _database = openDatabase(
       join(await getDatabasesPath(), 'app_database.db'),
       onCreate: (db, version) async {

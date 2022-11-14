@@ -194,11 +194,13 @@ Widget ifText(bool value,CalenderCell cell) {
             padding: EdgeInsets.only(bottom: 1),
               child:
                 Container(width: double.infinity,
+                  height: 12,
                   color: Colors.red,
                   child:Text(
                     cell.todoList[i].description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white70),
+                  style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white70,fontSize: 9),
+                      overflow: TextOverflow.ellipsis
               ),
             ),
           )

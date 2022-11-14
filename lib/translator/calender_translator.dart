@@ -16,7 +16,6 @@ class CalenderTranslator {
       dates.add(entity.dueDate);
     }
     for(var date in dates){
-      var todoList = <Todo>[];
       var filteredList = entityList.where((e) => e.dueDate == date).toList();
       var todoModels = TodoTranslator.todoConvert(filteredList);
       var cell = CalenderCell(targetDate: date, todoList: todoModels);

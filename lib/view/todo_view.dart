@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pro_sche/util/date_extention.dart';
 import '../calender.dart';
 import '../model/todo_model.dart';
 
@@ -49,7 +50,7 @@ final filteredTodos = Provider<List<Todo>>((ref) {
   }
 });
 final dateProvider = StateProvider<DateTime>((ref) {
-  return DateTime.now();
+  return DateExtention.dateOnlyNow();
 });
 
 
@@ -259,6 +260,7 @@ class TodoItem extends HookConsumerWidget {
             // Commit changes only when the textfield is unfocused, for performance
             ref.read(todoListProvider.notifier)
                 .edit(todo,textEditingController.text);
+            ref.read(calenderListProvider.notifier).get();
           }
         },
         child: ListTile(
