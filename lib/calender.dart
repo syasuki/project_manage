@@ -169,7 +169,6 @@ class _DateCell extends HookConsumerWidget {
           onTap: () async{
             await showModalBottomSheet(
                 context: context,
-
                 builder: (context)=> DraggableScrollableSheet(  //これ！
                     initialChildSize: 1,
                     builder: (BuildContext context, ScrollController
