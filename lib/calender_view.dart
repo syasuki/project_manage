@@ -25,7 +25,7 @@ class CalenderPage extends ConsumerWidget {
           animType: AnimType.leftSlide,
           headerAnimationLoop: false,
           dialogType: DialogType.success,
-          showCloseIcon: true,
+          showCloseIcon: false,
           autoHide: Duration(seconds: 2),
           title: 'Succes',
           desc:
