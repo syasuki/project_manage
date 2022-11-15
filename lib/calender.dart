@@ -169,14 +169,18 @@ class _DateCell extends HookConsumerWidget {
           onTap: () async{
             await showModalBottomSheet(
                 context: context,
+
                 builder: (context)=> DraggableScrollableSheet(  //これ！
                     initialChildSize: 1,
                     builder: (BuildContext context, ScrollController
                     scrollController)=>
                         Container(
-                          child: ListView(
+                          child: Column(
+                              children: [
+                                IconButton(icon:Icon(Icons.expand_more_outlined), onPressed: () { Navigator.of(context).pop(); },),
+                            Expanded(child:ListView(
                             shrinkWrap: true,
-                            children: ["a","b","c"].map((e) =>
+                            children: ["a","b","c","a","b","c","a","b","c"].map((e) =>
                                 ListTile(
                                   title: Text(
                                     e,
@@ -184,11 +188,16 @@ class _DateCell extends HookConsumerWidget {
                                         fontSize: 18
                                     ),
                                   ),
+                                  onTap: () {
+                                    //Navigator.of(context).pop();
+                                  },
                                 )
                             ).toList(),
                           ),
                         )
-                )
+                ]),
+                ),
+            )
             );
           },
           child:Column(
