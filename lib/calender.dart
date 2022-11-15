@@ -165,7 +165,33 @@ class _DateCell extends HookConsumerWidget {
             BorderSide(color: Theme.of(context).dividerColor, width: 1),
           ),
         ),
-        child: Column(
+        child: InkWell(
+          onTap: () async{
+            await showModalBottomSheet(
+                context: context,
+                builder: (context)=> DraggableScrollableSheet(  //これ！
+                    initialChildSize: 1,
+                    builder: (BuildContext context, ScrollController
+                    scrollController)=>
+                        Container(
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: ["a","b","c"].map((e) =>
+                                ListTile(
+                                  title: Text(
+                                    e,
+                                    style: TextStyle(
+                                        fontSize: 18
+                                    ),
+                                  ),
+                                )
+                            ).toList(),
+                          ),
+                        )
+                )
+            );
+          },
+          child:Column(
           children: [
             Text(date.day.toString()),
 
@@ -177,7 +203,7 @@ class _DateCell extends HookConsumerWidget {
             },
 
           ],
-        ),
+        ),),
       ),
     );
   }
