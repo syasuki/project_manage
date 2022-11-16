@@ -22,7 +22,7 @@ class CalenderPage extends ConsumerWidget {
             // フローティングアクションボタンを押された時の処理.
           AwesomeDialog(
           context: context,
-          animType: AnimType.leftSlide,
+          animType: AnimType.scale,
           headerAnimationLoop: false,
           dialogType: DialogType.success,
           showCloseIcon: false,
