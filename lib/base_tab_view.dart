@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pro_sche/main.dart';
+import 'package:pro_sche/view/section_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
 
 import 'calender_view.dart';
@@ -9,7 +10,7 @@ import 'folder_view.dart';
 
 final baseTabViewProvider = StateProvider<ViewType>((ref) => ViewType.home);
 
-enum ViewType { home, info }
+enum ViewType { home, info ,section}
 
 class BaseTabView extends ConsumerWidget {
   BaseTabView({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class BaseTabView extends ConsumerWidget {
   final widgets = [
     const CalenderPage(),
     const Home(),
+    const Section()
   ];
 
   @override
@@ -28,7 +30,8 @@ class BaseTabView extends ConsumerWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.calendar_month_outlined), label: 'カレンダー'),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), label: 'リスト')
+          BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), label: 'リスト'),
+          BottomNavigationBarItem(icon: Icon(Icons.folder), label: '項目')
         ],
         currentIndex: view.state.index,
         onTap: (int index) => view.update((state) => ViewType.values[index]),
