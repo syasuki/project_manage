@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pro_sche/view/event_view.dart';
 
 import 'calender.dart';
 import 'folder_view.dart';
@@ -20,24 +21,8 @@ class CalenderPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
           onPressed: () => {
             // フローティングアクションボタンを押された時の処理.
-          AwesomeDialog(
-          context: context,
-          animType: AnimType.scale,
-          headerAnimationLoop: false,
-          dialogType: DialogType.success,
-          showCloseIcon: false,
-          autoHide: Duration(seconds: 2),
-          title: 'Succes',
-          desc:
-          'Dialog description here..................................................',
-          btnOkOnPress: () {
-          debugPrint('OnClcik');
-          },
-          btnOkIcon: Icons.check_circle,
-          onDismissCallback: (type) {
-          debugPrint('Dialog Dissmiss from callback $type');
-          },
-          ).show()
+          Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Event()))
           },
           child: Icon(Icons.add)
       ),

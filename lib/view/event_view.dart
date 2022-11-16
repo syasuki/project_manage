@@ -24,7 +24,9 @@ class Event extends HookConsumerWidget {
     }
 
 
-    return GestureDetector(
+    return  Scaffold(
+      appBar: AppBar(title: Text("イベント")),
+      body:GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: Scrollbar(
@@ -68,6 +70,6 @@ class Event extends HookConsumerWidget {
           ),
         ),
       ),
-    );
+    ),);
   }
 }

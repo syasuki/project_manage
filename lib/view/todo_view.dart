@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -113,6 +114,24 @@ class Home extends HookConsumerWidget {
                   ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
                   ref.read(calenderListProvider.notifier).get();
                   newTodoController.clear();
+                  AwesomeDialog(
+                    context: context,
+                    animType: AnimType.scale,
+                    headerAnimationLoop: false,
+                    dialogType: DialogType.success,
+                    showCloseIcon: false,
+                    autoHide: Duration(seconds: 2),
+                    title: 'Succes',
+                    desc:
+                    '登録完了',
+                    btnOkOnPress: () {
+                      debugPrint('OnClcik');
+                    },
+                    btnOkIcon: Icons.check_circle,
+                    onDismissCallback: (type) {
+                      //debugPrint('Dialog Dissmiss from callback $type');
+                    },
+                  ).show();
                 },
               ),
               const SizedBox(height: 42),
