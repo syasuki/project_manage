@@ -49,6 +49,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
   awesome_dialog: ^3.0.2
+  flutter_native_splash: ^2.2.14
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,20 @@ dev_dependencies:
   build_runner: ^2.1.1
   uuid: 3.0.6
   awesome_dialog: ^3.0.2
+
+  flutter_native_splash: ^2.2.14
+
+flutter_native_splash:
+  color: '#add8e6'
+  image: 'assets/images/maskott.png'
+  color_dark: '#262626'
+  image_dark: 'assets/images/maskott.png'
+  fullscreen: true
+  android_12:
+    icon_background_color: '#add8e6'
+    image: 'assets/images/maskott.png'
+    icon_background_color_dark: '#262626'
+    image_dark: 'assets/images/maskott.png'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
