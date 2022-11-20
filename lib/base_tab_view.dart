@@ -11,7 +11,7 @@ import 'folder_view.dart';
 
 final baseTabViewProvider = StateProvider<ViewType>((ref) => ViewType.home);
 
-enum ViewType { home, info ,section,setting}
+enum ViewType { calender, home ,section,setting}
 
 class BaseTabView extends ConsumerWidget {
   BaseTabView({Key? key}) : super(key: key);
@@ -23,11 +23,32 @@ class BaseTabView extends ConsumerWidget {
     const Setting()
   ];
 
+  String getViewName(String name){
+    var text = "";
+    switch(name) {
+      case 'calender':
+        text = "カレンダー";
+        break;
+      case 'home':
+        text = "リスト";
+        break;
+      case 'section':
+        text = "項目";
+        break;
+      case 'setting':
+        text = "設定";
+        break;
+      default:
+        text = "設定";
+    }
+    return text;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final view = ref.watch(baseTabViewProvider.state);
     return Scaffold(
-      appBar: AppBar(title: Text(view.state.name)),
+      appBar: AppBar(title: Text(getViewName(view.state.name))),
       body: widgets[view.state.index],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
