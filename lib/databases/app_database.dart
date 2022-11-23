@@ -13,6 +13,8 @@ class AppDatabase {
         await db.execute(
             "CREATE TABLE event(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,text TEXT,dueDate TEXT)");
         await db.execute(
+            "CREATE TABLE section(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,text TEXT,dueDate TEXT)");
+        await db.execute(
             "insert into todo (id,title,text,dueDate)values(1, 'todo', '内容','$date')");
         /*
         await db.execute(
