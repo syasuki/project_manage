@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/util/date_extention.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../calender.dart';
 import '../model/todo_model.dart';
 
@@ -78,14 +79,33 @@ class Home extends HookConsumerWidget {
     }
 
 
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: Scrollbar(
           child:ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             children: [
               //const Title(),
+
+              ToggleSwitch(
+                minWidth: (MediaQuery.of(context).size.width - 41) / 2,
+                minHeight: 30,
+                cornerRadius: 20.0,
+                activeBgColors: [[Colors.green[800]!], [Colors.red[800]!]],
+                activeFgColor: Colors.white,
+                inactiveBgColor: Colors.grey,
+                inactiveFgColor: Colors.white,
+                initialLabelIndex: 1,
+                totalSwitches: 2,
+                labels: ['True', 'False'],
+                radiusStyle: true,
+                onToggle: (index) {
+                  print('switched to: $index');
+                },
+              ),
+
               TextField(
                 key: addTodoKey,
                 controller: newTodoController,

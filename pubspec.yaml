@@ -50,6 +50,8 @@ dependencies:
   intl: ^0.17.0
   awesome_dialog: ^3.0.2
   flutter_native_splash: ^2.2.14
+  fl_chart: ^0.55.2
+  toggle_switch: ^2.0.1
 
 dev_dependencies:
   flutter_test:
