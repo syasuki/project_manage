@@ -1,3 +1,4 @@
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -91,7 +92,7 @@ class Home extends HookConsumerWidget {
 
               ToggleSwitch(
                 minWidth: (MediaQuery.of(context).size.width - 41) / 2,
-                minHeight: 30,
+                minHeight: 25,
                 cornerRadius: 20.0,
                 activeBgColors: [[Colors.green[800]!], [Colors.red[800]!]],
                 activeFgColor: Colors.white,
@@ -99,7 +100,7 @@ class Home extends HookConsumerWidget {
                 inactiveFgColor: Colors.white,
                 initialLabelIndex: 1,
                 totalSwitches: 2,
-                labels: ['True', 'False'],
+                labels: ['タイムライン表示', 'LIST表示'],
                 radiusStyle: true,
                 onToggle: (index) {
                   print('switched to: $index');
@@ -175,6 +176,13 @@ class Home extends HookConsumerWidget {
               ],
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => {
+              // フローティングアクションボタンを押された時の処理.
+
+            },
+            child: Icon(Icons.add)
         ),
       ),
     );
