@@ -58,8 +58,8 @@ final dateProvider = StateProvider<DateTime>((ref) {
 });
 
 
-class Home extends HookConsumerWidget {
-  const Home({Key? key}) : super(key: key);
+class TodoHome extends HookConsumerWidget {
+  const TodoHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

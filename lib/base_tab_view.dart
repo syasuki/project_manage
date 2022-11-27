@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pro_sche/main.dart';
+import 'package:pro_sche/view/home_view.dart';
 import 'package:pro_sche/view/section_view.dart';
 import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
@@ -11,13 +12,14 @@ import 'folder_view.dart';
 
 final baseTabViewProvider = StateProvider<ViewType>((ref) => ViewType.home);
 
-enum ViewType { calender, home ,section,setting}
+enum ViewType { calender, todo,home ,section,setting}
 
 class BaseTabView extends ConsumerWidget {
   BaseTabView({Key? key}) : super(key: key);
 
   final widgets = [
     const CalenderPage(),
+    const TodoHome(),
     const Home(),
     const Section(),
     const Setting()
@@ -29,8 +31,11 @@ class BaseTabView extends ConsumerWidget {
       case 'calender':
         text = "カレンダー";
         break;
-      case 'home':
+      case 'todo':
         text = "リスト";
+        break;
+      case 'home':
+        text = "ホーム";
         break;
       case 'section':
         text = "項目";
@@ -52,8 +57,9 @@ class BaseTabView extends ConsumerWidget {
       body: widgets[view.state.index],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month_outlined), label: 'カレンダー'),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt_outlined), label: 'リスト'),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'カレンダー'),
+          BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'リスト'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
           BottomNavigationBarItem(icon: Icon(Icons.folder), label: '項目'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定')
         ],
