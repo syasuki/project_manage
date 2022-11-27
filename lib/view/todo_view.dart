@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/util/date_extention.dart';
+import 'package:pro_sche/view/todo_add_view.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../calender.dart';
 import '../model/todo_model.dart';
@@ -107,55 +108,7 @@ class Home extends HookConsumerWidget {
                 },
               ),
 
-              TextField(
-                key: addTodoKey,
-                controller: newTodoController,
-                decoration: const InputDecoration(
-                  labelText: 'What needs to be done?',
-                ),
-                onSubmitted: (value) {
-                  //ref.read(todoListProvider.notifier).add(newTodoController.text);
-                  //newTodoController.clear();
-                },
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black87,
-                ),
-                child: Text(outputFormat.format(ref.watch(dateProvider))),
-                onPressed: onPressedRaisedButton,
-              ),
-              ElevatedButton(
-                child: const Text('追加'),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff9941d8).withOpacity(0.6),
-                  onPrimary: Colors.white,
-                ),
-                onPressed: () {
-                  ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
-                  ref.read(calenderListProvider.notifier).get();
-                  newTodoController.clear();
-                  AwesomeDialog(
-                    context: context,
-                    animType: AnimType.scale,
-                    headerAnimationLoop: false,
-                    dialogType: DialogType.success,
-                    showCloseIcon: false,
-                    autoHide: Duration(seconds: 2),
-                    title: 'Succes',
-                    desc:
-                    '登録完了',
-                    btnOkOnPress: () {
-                      debugPrint('OnClcik');
-                    },
-                    btnOkIcon: Icons.check_circle,
-                    onDismissCallback: (type) {
-                      //debugPrint('Dialog Dissmiss from callback $type');
-                    },
-                  ).show();
-                },
-              ),
-              const SizedBox(height: 42),
+              const SizedBox(height: 20),
               const Toolbar(),
               if (todos.isNotEmpty) const Divider(height: 0),
               for (var i = 0; i < todos.length; i++) ...[
@@ -180,7 +133,8 @@ class Home extends HookConsumerWidget {
         floatingActionButton: FloatingActionButton(
             onPressed: () => {
               // フローティングアクションボタンを押された時の処理.
-
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => const TodoAdd()))
             },
             child: Icon(Icons.add)
         ),
