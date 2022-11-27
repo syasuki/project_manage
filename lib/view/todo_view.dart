@@ -101,7 +101,7 @@ class TodoHome extends HookConsumerWidget {
                 inactiveFgColor: Colors.white,
                 initialLabelIndex: 1,
                 totalSwitches: 2,
-                labels: ['タイムライン表示', 'LIST表示'],
+                labels: ['タイムライン表示', '登録順表示'],
                 radiusStyle: true,
                 onToggle: (index) {
                   print('switched to: $index');
