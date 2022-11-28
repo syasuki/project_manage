@@ -80,12 +80,12 @@ class PieChartSample1State extends State {
                         });
                       },
                     ),
-                    startDegreeOffset: 180,
+                    startDegreeOffset: 270,
                     borderData: FlBorderData(
                       show: false,
                     ),
                     sectionsSpace: 1,
-                    centerSpaceRadius: 0,
+                    centerSpaceRadius: 50,
                     sections: showingSections(),
                   ),
                 ),
@@ -115,7 +115,7 @@ class PieChartSample1State extends State {
               color: color0.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 80,
+              radius: 30,
               titleStyle: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -131,7 +131,7 @@ class PieChartSample1State extends State {
               color: color1.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 65,
+              radius: 30,
               titleStyle: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -147,7 +147,7 @@ class PieChartSample1State extends State {
               color: color2.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 60,
+              radius: 30,
               titleStyle: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -163,7 +163,7 @@ class PieChartSample1State extends State {
               color: color3.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 70,
+              radius: 30,
               titleStyle: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

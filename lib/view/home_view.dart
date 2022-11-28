@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/view/todo_view.dart';
+import 'package:pro_sche/view/ui/bar_chart.dart';
+import 'package:pro_sche/view/ui/bar_chart2.dart';
 import 'package:pro_sche/view/ui/pie_chart.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
+final graghTabProvider = StateProvider<int>((ref) => 0);
 
 class Home extends HookConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,7 +16,7 @@ class Home extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var outputFormat = DateFormat('yyyy-MM-dd');
-    int touchedIndex = -1;
+    int touchedIndex = 0;
 
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
@@ -57,7 +61,7 @@ class Home extends HookConsumerWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text("登録Todo",textAlign: TextAlign.center,),
                   Text("action数",
                     textAlign: TextAlign.center,
@@ -72,7 +76,7 @@ class Home extends HookConsumerWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: const [
                   Text("12個",textAlign: TextAlign.center),
                   Text("34回",
                     textAlign: TextAlign.center,
@@ -94,16 +98,18 @@ class Home extends HookConsumerWidget {
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
-                initialLabelIndex: 1,
+                initialLabelIndex: 0,
                 totalSwitches: 2,
-                labels: ['時系列', '割合'],
+                labels: const ['時系列', '割合'],
                 radiusStyle: true,
                 onToggle: (index) {
                   print('switched to: $index');
+                  ref.read(graghTabProvider.notifier).state =
+                      index!;
                 },
               ),
-              PieChartSample1(),
-
+              const SizedBox(height: 15),
+              ref.watch(graghTabProvider) == 0 ? BarChartSample4() : PieChartSample1(),
             ],
           ),
           ),
