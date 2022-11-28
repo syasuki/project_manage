@@ -17,6 +17,7 @@ class Home extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var outputFormat = DateFormat('yyyy-MM-dd');
     int touchedIndex = 0;
+    final indexprovider = ref.watch(graghTabProvider);
 
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
@@ -98,18 +99,18 @@ class Home extends HookConsumerWidget {
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
-                initialLabelIndex: 0,
+                initialLabelIndex: indexprovider,
                 totalSwitches: 2,
                 labels: const ['時系列', '割合'],
                 radiusStyle: true,
                 onToggle: (index) {
-                  print('switched to: $index');
+                  //print('switched to: $index');
                   ref.read(graghTabProvider.notifier).state =
                       index!;
                 },
               ),
               const SizedBox(height: 15),
-              ref.watch(graghTabProvider) == 0 ? BarChartSample4() : PieChartSample1(),
+              indexprovider == 0 ? BarChartSample4() : PieChartSample1(),
             ],
           ),
           ),

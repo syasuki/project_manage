@@ -14,7 +14,7 @@ class BarChartSample4State extends State<BarChartSample4> {
   final Color light = const Color(0xff73e8c9);
 
   Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Color(0xff939393), fontSize: 10);
+    const style = TextStyle(color: Colors.black, fontSize: 10,fontWeight: FontWeight.bold);
     String text;
     switch (value.toInt()) {
       case 0:
@@ -47,10 +47,9 @@ class BarChartSample4State extends State<BarChartSample4> {
       return Container();
     }
     const style = TextStyle(
-      color: Color(
-        0xff939393,
-      ),
+      color: Colors.black,
       fontSize: 10,
+      fontWeight: FontWeight.bold
     );
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -68,12 +67,12 @@ class BarChartSample4State extends State<BarChartSample4> {
       child: Card(
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        color: Colors.white,
+        color: Colors.grey[200],
         child: Padding(
           padding: const EdgeInsets.only(top: 16),
           child: BarChart(
             BarChartData(
-              alignment: BarChartAlignment.center,
+              alignment: BarChartAlignment.start,
               barTouchData: BarTouchData(
                 enabled: true,
               ),
@@ -104,13 +103,16 @@ class BarChartSample4State extends State<BarChartSample4> {
                 show: true,
                 checkToShowHorizontalLine: (value) => value % 10 == 0,
                 getDrawingHorizontalLine: (value) => FlLine(
-                  color: const Color(0xffe7e8ec),
+                  color: Colors.black,
                   strokeWidth: 1,
                 ),
                 drawVerticalLine: false,
               ),
               borderData: FlBorderData(
                 show: false,
+                border:Border.all(
+                  color: Colors.red,
+                )
               ),
               groupsSpace: 4,
               barGroups: getData(),
@@ -125,208 +127,290 @@ class BarChartSample4State extends State<BarChartSample4> {
     return [
       BarChartGroupData(
         x: 0,
-        barsSpace: 10,
+        barsSpace: 1,
         barRods: [
           BarChartRodData(
-            toY: 17000000000,
+            toY: 17,
             rodStackItems: [
-              BarChartRodStackItem(0, 2000000000, dark),
-              BarChartRodStackItem(2000000000, 12000000000, normal),
-              BarChartRodStackItem(12000000000, 17000000000, light),
+              BarChartRodStackItem(0, 2, dark),
+              BarChartRodStackItem(2, 12, normal),
+              BarChartRodStackItem(12, 17, light),
             ],
             borderRadius: BorderRadius.circular(50)
           ),
           BarChartRodData(
-            toY: 24000000000,
+            toY: 24,
             rodStackItems: [
-              BarChartRodStackItem(0, 13000000000, dark),
-              BarChartRodStackItem(13000000000, 14000000000, normal),
-              BarChartRodStackItem(14000000000, 24000000000, light),
+              BarChartRodStackItem(0, 13, dark),
+              BarChartRodStackItem(13, 14, normal),
+              BarChartRodStackItem(14, 24, light),
             ],
-            borderRadius: BorderRadius.zero,
+              borderRadius: BorderRadius.circular(50)
           ),
           BarChartRodData(
-            toY: 23000000000.5,
+            toY: 23,
             rodStackItems: [
-              BarChartRodStackItem(0, 6000000000.5, dark),
-              BarChartRodStackItem(6000000000.5, 18000000000, normal),
-              BarChartRodStackItem(18000000000, 23000000000.5, light),
+              BarChartRodStackItem(0, 6, dark),
+              BarChartRodStackItem(6, 18, normal),
+              BarChartRodStackItem(18, 23, light),
             ],
-            borderRadius: BorderRadius.zero,
+              borderRadius: BorderRadius.circular(50)
           ),
           BarChartRodData(
-            toY: 29000000000,
+            toY: 29,
             rodStackItems: [
-              BarChartRodStackItem(0, 9000000000, dark),
-              BarChartRodStackItem(9000000000, 15000000000, normal),
-              BarChartRodStackItem(15000000000, 29000000000, light),
+              BarChartRodStackItem(0, 9, dark),
+              BarChartRodStackItem(9, 15, normal),
+              BarChartRodStackItem(15, 29, light),
             ],
-            borderRadius: BorderRadius.zero,
+              borderRadius: BorderRadius.circular(50)
           ),
           BarChartRodData(
-            toY: 32000000000,
+            toY: 32,
             rodStackItems: [
-              BarChartRodStackItem(0, 2000000000.5, dark),
-              BarChartRodStackItem(2000000000.5, 17000000000.5, normal),
-              BarChartRodStackItem(17000000000.5, 32000000000, light),
+              BarChartRodStackItem(0, 2, dark),
+              BarChartRodStackItem(2, 17, normal),
+              BarChartRodStackItem(17, 32, light),
             ],
-            borderRadius: BorderRadius.zero,
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 17,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 12, normal),
+                BarChartRodStackItem(12, 17, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 24,
+              rodStackItems: [
+                BarChartRodStackItem(0, 13, dark),
+                BarChartRodStackItem(13, 14, normal),
+                BarChartRodStackItem(14, 24, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 23,
+              rodStackItems: [
+                BarChartRodStackItem(0, 6, dark),
+                BarChartRodStackItem(6, 18, normal),
+                BarChartRodStackItem(18, 23, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 29,
+              rodStackItems: [
+                BarChartRodStackItem(0, 9, dark),
+                BarChartRodStackItem(9, 15, normal),
+                BarChartRodStackItem(15, 29, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 32,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 17, normal),
+                BarChartRodStackItem(17, 32, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 17,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 12, normal),
+                BarChartRodStackItem(12, 17, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 24,
+              rodStackItems: [
+                BarChartRodStackItem(0, 13, dark),
+                BarChartRodStackItem(13, 14, normal),
+                BarChartRodStackItem(14, 24, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 23,
+              rodStackItems: [
+                BarChartRodStackItem(0, 6, dark),
+                BarChartRodStackItem(6, 18, normal),
+                BarChartRodStackItem(18, 23, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 29,
+              rodStackItems: [
+                BarChartRodStackItem(0, 9, dark),
+                BarChartRodStackItem(9, 15, normal),
+                BarChartRodStackItem(15, 29, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 32,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 17, normal),
+                BarChartRodStackItem(17, 32, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 17,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 12, normal),
+                BarChartRodStackItem(12, 17, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 24,
+              rodStackItems: [
+                BarChartRodStackItem(0, 13, dark),
+                BarChartRodStackItem(13, 14, normal),
+                BarChartRodStackItem(14, 24, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 23,
+              rodStackItems: [
+                BarChartRodStackItem(0, 6, dark),
+                BarChartRodStackItem(6, 18, normal),
+                BarChartRodStackItem(18, 23, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 29,
+              rodStackItems: [
+                BarChartRodStackItem(0, 9, dark),
+                BarChartRodStackItem(9, 15, normal),
+                BarChartRodStackItem(15, 29, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 32,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 17, normal),
+                BarChartRodStackItem(17, 32, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 17,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 12, normal),
+                BarChartRodStackItem(12, 17, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 24,
+              rodStackItems: [
+                BarChartRodStackItem(0, 13, dark),
+                BarChartRodStackItem(13, 14, normal),
+                BarChartRodStackItem(14, 24, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 23,
+              rodStackItems: [
+                BarChartRodStackItem(0, 6, dark),
+                BarChartRodStackItem(6, 18, normal),
+                BarChartRodStackItem(18, 23, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 29,
+              rodStackItems: [
+                BarChartRodStackItem(0, 9, dark),
+                BarChartRodStackItem(9, 15, normal),
+                BarChartRodStackItem(15, 29, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 32,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 17, normal),
+                BarChartRodStackItem(17, 32, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 17,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 12, normal),
+                BarChartRodStackItem(12, 17, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 24,
+              rodStackItems: [
+                BarChartRodStackItem(0, 13, dark),
+                BarChartRodStackItem(13, 14, normal),
+                BarChartRodStackItem(14, 24, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 23,
+              rodStackItems: [
+                BarChartRodStackItem(0, 6, dark),
+                BarChartRodStackItem(6, 18, normal),
+                BarChartRodStackItem(18, 23, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 29,
+              rodStackItems: [
+                BarChartRodStackItem(0, 9, dark),
+                BarChartRodStackItem(9, 15, normal),
+                BarChartRodStackItem(15, 29, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 32,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 17, normal),
+                BarChartRodStackItem(17, 32, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
+          ),
+          BarChartRodData(
+              toY: 32,
+              rodStackItems: [
+                BarChartRodStackItem(0, 2, dark),
+                BarChartRodStackItem(2, 17, normal),
+                BarChartRodStackItem(17, 32, light),
+              ],
+              borderRadius: BorderRadius.circular(50)
           ),
         ],
       ),
-      BarChartGroupData(
-        x: 1,
-        barsSpace: 10,
-        barRods: [
-          BarChartRodData(
-            toY: 31000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 11000000000, dark),
-              BarChartRodStackItem(11000000000, 18000000000, normal),
-              BarChartRodStackItem(18000000000, 31000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 35000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 14000000000, dark),
-              BarChartRodStackItem(14000000000, 27000000000, normal),
-              BarChartRodStackItem(27000000000, 35000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 31000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 8000000000, dark),
-              BarChartRodStackItem(8000000000, 24000000000, normal),
-              BarChartRodStackItem(24000000000, 31000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 15000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 6000000000.5, dark),
-              BarChartRodStackItem(6000000000.5, 12000000000.5, normal),
-              BarChartRodStackItem(12000000000.5, 15000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 17000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 9000000000, dark),
-              BarChartRodStackItem(9000000000, 15000000000, normal),
-              BarChartRodStackItem(15000000000, 17000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-        ],
-      ),
-      BarChartGroupData(
-        x: 2,
-        barsSpace: 4,
-        barRods: [
-          BarChartRodData(
-            toY: 34000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 6000000000, dark),
-              BarChartRodStackItem(6000000000, 23000000000, normal),
-              BarChartRodStackItem(23000000000, 34000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 32000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 7000000000, dark),
-              BarChartRodStackItem(7000000000, 24000000000, normal),
-              BarChartRodStackItem(24000000000, 32000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 14000000000.5,
-            rodStackItems: [
-              BarChartRodStackItem(0, 1000000000.5, dark),
-              BarChartRodStackItem(1000000000.5, 12000000000, normal),
-              BarChartRodStackItem(12000000000, 14000000000.5, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 20000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 4000000000, dark),
-              BarChartRodStackItem(4000000000, 15000000000, normal),
-              BarChartRodStackItem(15000000000, 20000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 24000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 4000000000, dark),
-              BarChartRodStackItem(4000000000, 15000000000, normal),
-              BarChartRodStackItem(15000000000, 24000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-        ],
-      ),
-      BarChartGroupData(
-        x: 3,
-        barsSpace: 4,
-        barRods: [
-          BarChartRodData(
-            toY: 14000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 1000000000.5, dark),
-              BarChartRodStackItem(1000000000.5, 12000000000, normal),
-              BarChartRodStackItem(12000000000, 14000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 27000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 7000000000, dark),
-              BarChartRodStackItem(7000000000, 25000000000, normal),
-              BarChartRodStackItem(25000000000, 27000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 29000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 6000000000, dark),
-              BarChartRodStackItem(6000000000, 23000000000, normal),
-              BarChartRodStackItem(23000000000, 29000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 16000000000.5,
-            rodStackItems: [
-              BarChartRodStackItem(0, 9000000000, dark),
-              BarChartRodStackItem(9000000000, 15000000000, normal),
-              BarChartRodStackItem(15000000000, 16000000000.5, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-          BarChartRodData(
-            toY: 15000000000,
-            rodStackItems: [
-              BarChartRodStackItem(0, 7000000000, dark),
-              BarChartRodStackItem(7000000000, 12000000000.5, normal),
-              BarChartRodStackItem(12000000000.5, 15000000000, light),
-            ],
-            borderRadius: BorderRadius.zero,
-          ),
-        ],
-      ),
+
     ];
   }
 }
