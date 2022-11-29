@@ -13,7 +13,7 @@ import 'folder_view.dart';
 
 final baseTabViewProvider = StateProvider<ViewType>((ref) => ViewType.home);
 
-enum ViewType { calender, todo,home ,section,achieve}
+enum ViewType { calender, todo, home, section, achieve }
 
 class BaseTabView extends ConsumerWidget {
   BaseTabView({Key? key}) : super(key: key);
@@ -26,9 +26,9 @@ class BaseTabView extends ConsumerWidget {
     const Achieve(),
   ];
 
-  String getViewName(String name){
+  String getViewName(String name) {
     var text = "";
-    switch(name) {
+    switch (name) {
       case 'calender':
         text = "カレンダー";
         break;
@@ -58,17 +58,28 @@ class BaseTabView extends ConsumerWidget {
     final view = ref.watch(baseTabViewProvider.state);
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            getViewName(view.state.name),
-              style: TextStyle(color: Colors.black87)
+        title: Text(getViewName(view.state.name),
+            style: TextStyle(color: Colors.black87)),
+        backgroundColor: Colors.grey[200],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black87,
+            ),
+            onPressed: () =>{
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => const Setting()))
+            },
           ),
-              backgroundColor: Colors.grey[200],
+        ],
       ),
       body: widgets[view.state.index],
       backgroundColor: Colors.grey[200],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'カレンダー'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month), label: 'カレンダー'),
           BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'リスト'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
           BottomNavigationBarItem(icon: Icon(Icons.folder), label: '項目'),
