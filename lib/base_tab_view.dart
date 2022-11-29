@@ -59,6 +59,7 @@ class BaseTabView extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(getViewName(view.state.name))),
       body: widgets[view.state.index],
+      backgroundColor: Colors.grey[200],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'カレンダー'),
