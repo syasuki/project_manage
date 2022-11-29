@@ -4,11 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:pro_sche/view/ui/bar_chart.dart';
-import 'package:pro_sche/view/ui/bar_chart2.dart';
-import 'package:pro_sche/view/ui/pie_chart.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-
-final graghTabProvider = StateProvider<int>((ref) => 0);
 
 class Home extends HookConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,8 +11,6 @@ class Home extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var outputFormat = DateFormat('yyyy-MM-dd');
-    int touchedIndex = 0;
-    final indexprovider = ref.watch(graghTabProvider);
 
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
@@ -36,85 +29,72 @@ class Home extends HookConsumerWidget {
       body:GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child:Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(Icons.arrow_back_ios),
-                  Text(outputFormat.format(ref.watch(dateProvider))),
-                  Icon(Icons.arrow_forward_ios),
-                  ElevatedButton(
-                    child: const Text('日別'),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white70,
-                      backgroundColor: Colors.red,
-                      shape: const StadiumBorder(),
+            body: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child:Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Card(
+                      color: Colors.grey[200],
+                      child: Container(
+                          height: (MediaQuery.of(context).size.width - 41),
+                          width: (MediaQuery.of(context).size.width - 41),
+                          child: Text('Flutter'),
+                          alignment: Alignment.center,
+                      ),
                     ),
-                    onPressed: () {},
-                  ),
-
-
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("登録Todo",textAlign: TextAlign.center,),
-                  Text("action数",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica Neue',
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Container(
+                                height: 150,
+                                width: (MediaQuery.of(context).size.width - 61) / 2,
+                                alignment: Alignment.center,
+                                color: Colors.amber,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ElevatedButton(
+                                      child: const Text('追加'),
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Color(0xff9941d8).withOpacity(0.6),
+                                      ),
+                                      onPressed: () {
+                                      },
+                                    ),
+                                    ElevatedButton(
+                                      child: const Text('追加'),
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Color(0xff9941d8).withOpacity(0.6),
+                                      ),
+                                      onPressed: () {
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              height: 150,
+                              width: (MediaQuery.of(context).size.width - 61) / 2,
+                              child: Text('Flutter'),
+                              alignment: Alignment.center,
+                              color: Colors.amber,
+                            ),
+                          ),
+                        ]
                     ),
-                  ),
-                  Text("完了Todo",textAlign: TextAlign.center,),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("12個",textAlign: TextAlign.center),
-                  Text("34回",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica Neue',
-                    ),
-                  ),
-                  Text("12個",textAlign: TextAlign.center,),
-                ],
-              ),
-              const SizedBox(height: 15),
-              ToggleSwitch(
-                minWidth: (MediaQuery.of(context).size.width - 41) / 2,
-                minHeight: 25,
-                cornerRadius: 20.0,
-                activeBgColors: [[Colors.green[800]!], [Colors.red[800]!]],
-                activeFgColor: Colors.white,
-                inactiveBgColor: Colors.grey,
-                inactiveFgColor: Colors.white,
-                initialLabelIndex: indexprovider,
-                totalSwitches: 2,
-                labels: const ['時系列', '割合'],
-                radiusStyle: true,
-                onToggle: (index) {
-                  //print('switched to: $index');
-                  ref.read(graghTabProvider.notifier).state =
-                      index!;
-                },
-              ),
-              const SizedBox(height: 15),
-              indexprovider == 0 ? BarChartSample4() : PieChartSample1(),
-            ],
-          ),
+                  ],
+                ),
+            ),
           ),
         ),
-      ),);
-  }
+      );
+    }
 }

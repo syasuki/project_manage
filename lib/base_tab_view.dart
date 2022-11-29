@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pro_sche/main.dart';
+import 'package:pro_sche/view/achieve_view.dart';
 import 'package:pro_sche/view/home_view.dart';
 import 'package:pro_sche/view/section_view.dart';
 import 'package:pro_sche/view/setting_view.dart';
@@ -12,7 +13,7 @@ import 'folder_view.dart';
 
 final baseTabViewProvider = StateProvider<ViewType>((ref) => ViewType.home);
 
-enum ViewType { calender, todo,home ,section,setting}
+enum ViewType { calender, todo,home ,section,achieve}
 
 class BaseTabView extends ConsumerWidget {
   BaseTabView({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class BaseTabView extends ConsumerWidget {
     const TodoHome(),
     const Home(),
     const Section(),
-    const Setting()
+    const Achieve(),
   ];
 
   String getViewName(String name){
@@ -42,6 +43,9 @@ class BaseTabView extends ConsumerWidget {
         break;
       case 'setting':
         text = "設定";
+        break;
+      case 'achieve':
+        text = "記録";
         break;
       default:
         text = "設定";
