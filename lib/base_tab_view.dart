@@ -57,7 +57,13 @@ class BaseTabView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final view = ref.watch(baseTabViewProvider.state);
     return Scaffold(
-      appBar: AppBar(title: Text(getViewName(view.state.name))),
+      appBar: AppBar(
+          title: Text(
+            getViewName(view.state.name),
+              style: TextStyle(color: Colors.black87)
+          ),
+              backgroundColor: Colors.grey[200],
+      ),
       body: widgets[view.state.index],
       backgroundColor: Colors.grey[200],
       bottomNavigationBar: BottomNavigationBar(
