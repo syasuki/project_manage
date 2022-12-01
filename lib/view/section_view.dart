@@ -12,10 +12,10 @@ class Section extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var outputFormat = DateFormat('yyyy-MM-dd');
-    final _tab = <Tab> [
-      Tab( text:'iOS'),
-      Tab( text:'Andorid'),
-      Tab( text:'Flutter'),
+    final _tab = <Tab>[
+      Tab(text: 'iOS'),
+      Tab(text: 'Andorid'),
+      Tab(text: 'Flutter'),
     ];
 
     void onPressedRaisedButton() async {
@@ -23,22 +23,19 @@ class Section extends HookConsumerWidget {
           context: context,
           initialDate: ref.watch(dateProvider),
           firstDate: new DateTime(2018),
-          lastDate: new DateTime.now().add(new Duration(days: 360))
-      );
+          lastDate: new DateTime.now().add(new Duration(days: 360)));
       if (picked != null) {
         ref.read(dateProvider.notifier).state = picked;
       }
     }
 
-
-    return  GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: DefaultTabController(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: DefaultTabController(
         length: _tab.length,
         child: Scaffold(
           appBar: AppBar(
-            title: Text("項目",
-                style: TextStyle(color: Colors.black87)),
+            title: Text("項目", style: TextStyle(color: Colors.black87)),
             backgroundColor: Colors.grey[200],
             bottom: TabBar(
               labelColor: Colors.blue,
@@ -52,23 +49,21 @@ class Section extends HookConsumerWidget {
                   Icons.settings,
                   color: Colors.black87,
                 ),
-                onPressed: () =>{
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => const Setting()))
+                onPressed: () => {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Setting()))
                 },
               ),
             ],
           ),
-          body: TabBarView(
-              children: <Widget> [
-                SectionPageItem(),
-                SectionPageItem(),
-                SectionPageItem(),
-              ]
-          ),
+          body: TabBarView(children: <Widget>[
+            SectionPageItem(),
+            SectionPageItem(),
+            SectionPageItem(),
+          ]),
         ),
-        ),
-      );
+      ),
+    );
   }
 }
 
@@ -82,7 +77,6 @@ class SectionPageItem extends HookConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
             Text(
               "進捗率　60%",
               textAlign: TextAlign.center,
@@ -97,23 +91,21 @@ class SectionPageItem extends HookConsumerWidget {
               "タスク進捗割合 50%",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Helvetica Neue',
               ),
             ),
-            Expanded(child:ListView(
-              shrinkWrap: true,
-              children: ["a","b","c","a","b","c","a","b","c"].map((e) =>
-              SectionPageTaskVarietyItem()
-              ).toList(),
-            ),
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                children: ["a", "b", "c", "a", "b", "c", "a", "b", "c"]
+                    .map((e) => SectionPageTaskVarietyItem())
+                    .toList(),
+              ),
             )
-
           ],
-    )
-
-    );
+        ));
   }
 }
 
@@ -123,11 +115,29 @@ class SectionPageTaskVarietyItem extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
-      child: Text(
-        'Card01',
-        style: TextStyle(fontSize: 20),
+      color: Colors.grey[200],
+      child: Container(
+        height: (50),
+        width: (MediaQuery.of(context).size.width - 41),
+        alignment: Alignment.center,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("実行済タスク"),
+              Spacer(),
+              Text(
+                "12個",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Helvetica Neue',
+                ),)
+            ],
+          ),
+        ),
       ),
-      color: Colors.grey[200],// 影
     );
   }
 }
