@@ -45,7 +45,7 @@ class BaseTabView extends ConsumerWidget {
         text = "設定";
         break;
       case 'achieve':
-        text = "記録";
+        text = "実績";
         break;
       default:
         text = "設定";
@@ -57,23 +57,7 @@ class BaseTabView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final view = ref.watch(baseTabViewProvider.state);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(getViewName(view.state.name),
-            style: TextStyle(color: Colors.black87)),
-        backgroundColor: Colors.grey[200],
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.settings,
-              color: Colors.black87,
-            ),
-            onPressed: () =>{
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Setting()))
-            },
-          ),
-        ],
-      ),
+
       body: widgets[view.state.index],
       backgroundColor: Colors.grey[200],
       bottomNavigationBar: BottomNavigationBar(
@@ -83,7 +67,7 @@ class BaseTabView extends ConsumerWidget {
           BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'リスト'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
           BottomNavigationBarItem(icon: Icon(Icons.folder), label: '項目'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '設定')
+          BottomNavigationBarItem(icon: Icon(Icons.analytics), label: '実績')
         ],
         currentIndex: view.state.index,
         onTap: (int index) => view.update((state) => ViewType.values[index]),

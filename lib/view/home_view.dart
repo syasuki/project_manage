@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:pro_sche/view/ui/bar_chart.dart';
 
@@ -27,6 +28,23 @@ class Home extends HookConsumerWidget {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+          appBar: AppBar(
+            title: Text("ホーム",
+                style: TextStyle(color: Colors.black87)),
+            backgroundColor: Colors.grey[200],
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.black87,
+                ),
+                onPressed: () =>{
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => const Setting()))
+                },
+              ),
+            ],
+          ),
           backgroundColor: Colors.grey[200],
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -42,6 +60,7 @@ class Home extends HookConsumerWidget {
                   child: Container(
                     height: (MediaQuery.of(context).size.width - 41),
                     width: (MediaQuery.of(context).size.width - 41),
+                    alignment: Alignment.center,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -116,7 +135,7 @@ class Home extends HookConsumerWidget {
                                       decoration: BoxDecoration(
                                         color: Colors.red,
                                         borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             color: Colors.grey, //色
                                             spreadRadius: 1,
@@ -125,10 +144,11 @@ class Home extends HookConsumerWidget {
                                           ),
                                         ],
                                       ),
+                                      alignment: Alignment.center,
                                       child: Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                          children: [
+                                          children: const [
                                             Text("期間間近タスク",
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -144,7 +164,6 @@ class Home extends HookConsumerWidget {
                                                 fontFamily: 'Helvetica Neue',
                                               ),)
                                           ]),
-                                      alignment: Alignment.center,
                                     ),
                                   ),
                                   Padding(
@@ -158,7 +177,7 @@ class Home extends HookConsumerWidget {
                                       decoration: BoxDecoration(
                                         color: Colors.red,
                                         borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
                                             color: Colors.grey, //色
                                             spreadRadius: 1,
@@ -167,10 +186,11 @@ class Home extends HookConsumerWidget {
                                           ),
                                         ],
                                       ),
+                                      alignment: Alignment.center,
                                       child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
-                                          children: [
+                                          children: const [
                                             Text("最近動かタスク",
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -186,13 +206,11 @@ class Home extends HookConsumerWidget {
                                                 fontFamily: 'Helvetica Neue',
                                               ),)
                                           ]),
-                                      alignment: Alignment.center,
                                     ),
                                   ),
                                 ]),
                           ),
                         ]),
-                    alignment: Alignment.center,
                   ),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [

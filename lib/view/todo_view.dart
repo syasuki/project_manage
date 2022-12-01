@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/util/date_extention.dart';
+import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_add_view.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../calender.dart';
@@ -85,6 +86,23 @@ class TodoHome extends HookConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("リスト",
+              style: TextStyle(color: Colors.black87)),
+          backgroundColor: Colors.grey[200],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black87,
+              ),
+              onPressed: () =>{
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const Setting()))
+              },
+            ),
+          ],
+        ),
         body: Scrollbar(
           child:ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

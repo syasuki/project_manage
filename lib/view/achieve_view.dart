@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:pro_sche/view/ui/bar_chart.dart';
 import 'package:pro_sche/view/ui/bar_chart2.dart';
@@ -33,6 +34,23 @@ class Achieve extends HookConsumerWidget {
 
 
     return  Scaffold(
+      appBar: AppBar(
+        title: Text("実績",
+            style: TextStyle(color: Colors.black87)),
+        backgroundColor: Colors.grey[200],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black87,
+            ),
+            onPressed: () =>{
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => const Setting()))
+            },
+          ),
+        ],
+      ),
       body:GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(

@@ -29,6 +29,12 @@ class Setting extends HookConsumerWidget {
       body:GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+            appBar: AppBar(
+              title: Text("設定",
+                  style: TextStyle(color: Colors.black87)),
+              backgroundColor: Colors.grey[200],
+
+            ),
           body: BarChartSample4()
         ),
       ),);

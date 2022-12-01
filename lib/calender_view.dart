@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pro_sche/view/event_view.dart';
+import 'package:pro_sche/view/setting_view.dart';
 
 import 'calender.dart';
 import 'folder_view.dart';
@@ -14,6 +15,23 @@ class CalenderPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("カレンダー",
+            style: TextStyle(color: Colors.black87)),
+        backgroundColor: Colors.grey[200],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.black87,
+            ),
+            onPressed: () =>{
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => const Setting()))
+            },
+          ),
+        ],
+      ),
 
       body: Center(
         child: CalendarPageView()
