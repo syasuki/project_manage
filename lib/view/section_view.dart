@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
+import 'package:pro_sche/view/ui/pie_chart.dart';
 
 class Section extends HookConsumerWidget {
   const Section({Key? key}) : super(key: key);
@@ -12,9 +13,9 @@ class Section extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var outputFormat = DateFormat('yyyy-MM-dd');
     final _tab = <Tab> [
-      Tab( text:'Car'),
-      Tab( text:'Bicycle'),
-      Tab( text:'Boat'),
+      Tab( text:'iOS'),
+      Tab( text:'Andorid'),
+      Tab( text:'Flutter'),
     ];
 
     void onPressedRaisedButton() async {
@@ -40,6 +41,9 @@ class Section extends HookConsumerWidget {
                 style: TextStyle(color: Colors.black87)),
             backgroundColor: Colors.grey[200],
             bottom: TabBar(
+              labelColor: Colors.blue,
+              indicatorColor: Colors.blue,
+              unselectedLabelColor: Colors.black87,
               tabs: _tab,
             ),
             actions: <Widget>[
@@ -57,13 +61,73 @@ class Section extends HookConsumerWidget {
           ),
           body: TabBarView(
               children: <Widget> [
-                Text("a"),
-                Text("b"),
-                Text("b"),
+                SectionPageItem(),
+                SectionPageItem(),
+                SectionPageItem(),
               ]
           ),
         ),
         ),
       );
+  }
+}
+
+class SectionPageItem extends HookConsumerWidget {
+  const SectionPageItem({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+
+            Text(
+              "進捗率　60%",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Helvetica Neue',
+              ),
+            ),
+            PieChartSample1(),
+            Text(
+              "タスク進捗割合 50%",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Helvetica Neue',
+              ),
+            ),
+            Expanded(child:ListView(
+              shrinkWrap: true,
+              children: ["a","b","c","a","b","c","a","b","c"].map((e) =>
+              SectionPageTaskVarietyItem()
+              ).toList(),
+            ),
+            )
+
+          ],
+    )
+
+    );
+  }
+}
+
+class SectionPageTaskVarietyItem extends HookConsumerWidget {
+  const SectionPageTaskVarietyItem({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
+      child: Text(
+        'Card01',
+        style: TextStyle(fontSize: 20),
+      ),
+      color: Colors.grey[200],// 影
+    );
   }
 }
