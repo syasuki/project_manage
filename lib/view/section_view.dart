@@ -16,6 +16,8 @@ class Section extends HookConsumerWidget {
       Tab(text: 'iOS'),
       Tab(text: 'Andorid'),
       Tab(text: 'Flutter'),
+      Tab(text: 'Laravel'),
+      Tab(text: 'postgres'),
     ];
 
     void onPressedRaisedButton() async {
@@ -99,7 +101,7 @@ class SectionPageItem extends HookConsumerWidget {
             Expanded(
               child: ListView(
                 shrinkWrap: true,
-                children: ["a", "b", "c", "a", "b", "c", "a", "b", "c"]
+                children: ["a", "b", "c", "a"]
                     .map((e) => SectionPageTaskVarietyItem())
                     .toList(),
               ),
