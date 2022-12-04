@@ -116,6 +116,46 @@ class Home extends HookConsumerWidget {
                                   )
                                 ]),
                           ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 10),
+                            child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "今週の進行具合",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Helvetica Neue',
+                                    ),
+                                  ),
+                                  Text(
+                                    "13%",
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Helvetica Neue',
+                                    ),
+                                  )
+                                ]),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(30)),
+                              child: LinearProgressIndicator(
+                                backgroundColor: Colors.grey,
+                                valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
+                                minHeight: 10,
+                                value: 0.4,
+                              ),
+                            ),
+                          ),
+
                           Spacer(),
                           Padding(
                             padding: EdgeInsets.symmetric(
