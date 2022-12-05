@@ -39,7 +39,7 @@ class TodoList extends StateNotifier<List<Todo>> {
   }
   */
   Future<void> initGet() async {
-    var entity = await TodoEntity.get();
+    var entity = await TaskEntity.get();
     state = TodoTranslator.todoConvert(entity);
   }
 /*
@@ -53,10 +53,10 @@ class TodoList extends StateNotifier<List<Todo>> {
     ];
   }*/
   Future<void> add(String description,DateTime targetDate) async {
-    var entity = TodoEntity(title: 'title', text: description, dueDate: targetDate);
-    await TodoEntity.insert(entity);
+    var entity = TaskEntity(title: 'title', note: description, status: 1, progress: 0, priority: 1, section_id: 1, deadline: targetDate, created_at: targetDate, updated_at: targetDate);
+    await TaskEntity.insert(entity);
 
-    var ret = await TodoEntity.get();
+    var ret = await TaskEntity.get();
     //CalenderTranslator.todoConvert(ret);
     state = TodoTranslator.todoConvert(ret);
   }
@@ -76,36 +76,16 @@ class TodoList extends StateNotifier<List<Todo>> {
     ];
   }
 
-  /*
-  void edit({required int id, required String description}) {
-    state = [
-      for (final todo in state)
-        if (todo.id == id)
-          Todo(
-            id: todo.id,
-            completed: todo.completed,
-            description: description,
-          )
-        else
-          todo,
-    ];
-  }
-*/
   Future<void> edit(Todo target,String description) async {
     var entity = TodoTranslator.todoModelConvert(target,description);
-    await TodoEntity.update(entity);
-    var ret = await TodoEntity.get();
+    await TaskEntity.update(entity);
+    var ret = await TaskEntity.get();
     state = TodoTranslator.todoConvert(ret);
   }
-/*
-  void remove(Todo target) {
-    state = state.where((todo) => todo.id != target.id).toList();
-  }
 
- */
   Future<void> remove(Todo target) async {
-    await TodoEntity.delete(target.id);
-    var ret = await TodoEntity.get();
+    await TaskEntity.delete(target.id);
+    var ret = await TaskEntity.get();
     state = TodoTranslator.todoConvert(ret);
   }
 }

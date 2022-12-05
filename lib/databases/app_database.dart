@@ -9,13 +9,19 @@ class AppDatabase {
       join(await getDatabasesPath(), 'app_database.db'),
       onCreate: (db, version) async {
         await db.execute(
-            "CREATE TABLE todo(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,text TEXT,dueDate TEXT)");
+            "CREATE TABLE task(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,note TEXT,status INTEGER,progress INTEGER, deadline TEXT,"
+                "priority INTEGER,event_id INTEGER,section_id INTEGER,created_at TEXT,updated_at TEXT)");
         await db.execute(
-            "CREATE TABLE event(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,text TEXT,dueDate TEXT)");
+            "CREATE TABLE event(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,note TEXT,isAll INTEGER,target_date TEXT,"
+                "start_time TEXT,end_time TEXT, created_at TEXT, updated_at TEXT)");
         await db.execute(
-            "CREATE TABLE section(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT,text TEXT,dueDate TEXT)");
+            "CREATE TABLE section(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,description TEXT, created_at TEXT, updated_at TEXT)");
         await db.execute(
-            "insert into todo (id,title,text,dueDate)values(1, 'todo', '内容','$date')");
+            "CREATE TABLE action(id INTEGER PRIMARY KEY AUTOINCREMENT, context TEXT, created_at TEXT)");
+        await db.execute(
+            "CREATE TABLE task_tracker(id INTEGER PRIMARY KEY AUTOINCREMENT, task_id INTEGER,note TEXT,created_at TEXT, updated_at TEXT)");
+        await db.execute(
+            "insert into task (id,title,note,status,progress,deadline,priority,event_id,section_id,created_at,updated_at)values(1, 'todo', '内容',1,0,'$date',1,1,null,'$date','$date')");
         /*
         await db.execute(
             "CREATE TABLE category(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,text TEXT,createdAt TEXT)");
