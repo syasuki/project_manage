@@ -10,6 +10,7 @@ import 'package:pro_sche/view/todo_add_view.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../calender.dart';
 import '../model/todo_model.dart';
+import '../provider/provider.dart';
 
 
 /// Some keys used for testing
@@ -18,12 +19,7 @@ final activeFilterKey = UniqueKey();
 final completedFilterKey = UniqueKey();
 final allFilterKey = UniqueKey();
 
-/// Creates a [TaskList] and initialise it with pre-defined values.
-final todoListProvider = StateNotifierProvider<TaskList, List<Task>>((ref) {
-  var todoList = TaskList();
-  todoList.initGet();
-  return todoList;
-});
+
 
 /// The different ways to filter the list of todos
 enum TodoListFilter {

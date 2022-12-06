@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pro_sche/view/event_add.dart';
 import 'package:pro_sche/view/event_view.dart';
 import 'package:pro_sche/view/setting_view.dart';
 
@@ -40,7 +41,7 @@ class CalenderPage extends ConsumerWidget {
           onPressed: () => {
             // フローティングアクションボタンを押された時の処理.
           Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Event()))
+          context, MaterialPageRoute(builder: (context) => const EventAdd()))
           },
           child: Icon(Icons.add)
       ),

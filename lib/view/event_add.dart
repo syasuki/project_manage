@@ -9,12 +9,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../calender.dart';
 import '../provider/provider.dart';
 
-class TodoAdd extends HookConsumerWidget {
-  const TodoAdd({Key? key}) : super(key: key);
+class EventAdd extends HookConsumerWidget {
+  const EventAdd({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final newTodoController = useTextEditingController();
+    final titleController = useTextEditingController();
+    final noteController = useTextEditingController();
     var outputFormat = DateFormat('yyyy-MM-dd');
 
     void onPressedRaisedButton() async {
@@ -33,7 +34,7 @@ class TodoAdd extends HookConsumerWidget {
     return  GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: Text("TodoAdd")),
+        appBar: AppBar(title: Text("EventAdd")),
         body: Scrollbar(
           child:ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
@@ -41,9 +42,28 @@ class TodoAdd extends HookConsumerWidget {
               //const Title(),
               TextField(
                 key: addTodoKey,
-                controller: newTodoController,
+                controller: titleController,
                 decoration: const InputDecoration(
                   //labelText: 'What needs to be done?',
+                ),
+                onSubmitted: (value) {
+                  //ref.read(todoListProvider.notifier).add(newTodoController.text);
+                  //newTodoController.clear();
+                },
+              ),
+              TextField(
+                key: addTodoKey,
+                maxLines: 3,
+                minLines: 3,
+
+                controller: noteController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  hintText: 'プレースホルダ',
+                  labelText: 'ラベル',
+                  //この一行
+                  alignLabelWithHint: true,
                 ),
                 onSubmitted: (value) {
                   //ref.read(todoListProvider.notifier).add(newTodoController.text);
@@ -64,9 +84,9 @@ class TodoAdd extends HookConsumerWidget {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
+                  ref.read(eventListProvider.notifier).add(titleController.text,ref.watch(dateProvider));
                   ref.read(calenderListProvider.notifier).get();
-                  newTodoController.clear();
+                  titleController.clear();
                   AwesomeDialog(
                     context: context,
                     animType: AnimType.scale,

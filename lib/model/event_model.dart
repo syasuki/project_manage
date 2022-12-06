@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:pro_sche/entity/event_entity.dart';
@@ -30,17 +29,19 @@ class Event {
     return 'Todo(description: $description, completed: $completed)';
   }
 }
-
-/// An object that controls a list of [Event].
-class TodoList extends StateNotifier<List<Event>> {
-  TodoList() : super([]);
-
-  /*
-  Future<List<Todo>> init() async {
-    var entity = await TodoEntity.get();
-    return TodoTranslator.todoConvert(entity);
+class EventModel extends StateNotifier<Event>{
+  EventModel(super.state);
+  Future<void> add(String description,DateTime targetDate) async {
+    var entity = EventEntity(title: 'title', note: description, isAll: 1, target_date: DateExtention.dateOnlyNow());
+    await EventEntity.insert(entity);
+    var ret = await EventEntity.get();
   }
-  */
+}
+/// An object that controls a list of [Event].
+class EventList extends StateNotifier<List<Event>> {
+  EventList() : super([]);
+
+
   Future<void> initGet() async {
     var entity = await EventEntity.get();
     //state = TodoTranslator.todoConvert(entity);
@@ -55,36 +56,7 @@ class TodoList extends StateNotifier<List<Event>> {
     //state = TodoTranslator.todoConvert(ret);
   }
 
-  void toggle(int id) {
-    state = [
-      for (final todo in state)
-        if (todo.id == id)
-          Event(
-            id: todo.id,
-            completed: !todo.completed,
-            description: todo.description,
-            targetDate: todo.targetDate,
-          )
-        else
-          todo,
-    ];
-  }
 
-  /*
-  void edit({required int id, required String description}) {
-    state = [
-      for (final todo in state)
-        if (todo.id == id)
-          Todo(
-            id: todo.id,
-            completed: todo.completed,
-            description: description,
-          )
-        else
-          todo,
-    ];
-  }
-*/
   Future<void> edit(Event target,String description) async {
     /*var entity = TodoTranslator.todoModelConvert(target,description);
     await EventEntity.update(entity);
@@ -93,12 +65,7 @@ class TodoList extends StateNotifier<List<Event>> {
 
      */
   }
-/*
-  void remove(Todo target) {
-    state = state.where((todo) => todo.id != target.id).toList();
-  }
 
- */
   Future<void> remove(Event target) async {
     await EventEntity.delete(target.id);
     var ret = await EventEntity.get();
