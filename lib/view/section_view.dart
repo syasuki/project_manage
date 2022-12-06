@@ -18,6 +18,9 @@ class Section extends HookConsumerWidget {
       Tab(text: 'Flutter'),
       Tab(text: 'Laravel'),
       Tab(text: 'postgres'),
+      Tab(text: 'Flutter'),
+      Tab(text: 'Laravel'),
+      Tab(text: 'postgres'),
     ];
 
     void onPressedRaisedButton() async {
@@ -40,6 +43,7 @@ class Section extends HookConsumerWidget {
             title: Text("項目", style: TextStyle(color: Colors.black87)),
             backgroundColor: Colors.grey[200],
             bottom: TabBar(
+              isScrollable: true,
               labelColor: Colors.blue,
               indicatorColor: Colors.blue,
               unselectedLabelColor: Colors.black87,
@@ -59,6 +63,11 @@ class Section extends HookConsumerWidget {
             ],
           ),
           body: TabBarView(children: <Widget>[
+            SectionPageItem(),
+            SectionPageItem(),
+            SectionPageItem(),
+            SectionPageItem(),
+            SectionPageItem(),
             SectionPageItem(),
             SectionPageItem(),
             SectionPageItem(),

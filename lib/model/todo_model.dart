@@ -9,8 +9,8 @@ import '../util/date_extention.dart';
 
 /// A read-only description of a todo-item
 @immutable
-class Todo {
-  const Todo({
+class Task {
+  const Task({
     required this.description,
     required this.id,
     required this.targetDate,
@@ -28,9 +28,9 @@ class Todo {
   }
 }
 
-/// An object that controls a list of [Todo].
-class TodoList extends StateNotifier<List<Todo>> {
-  TodoList() : super([]);
+/// An object that controls a list of [Task].
+class TaskList extends StateNotifier<List<Task>> {
+  TaskList() : super([]);
 
   /*
   Future<List<Todo>> init() async {
@@ -65,7 +65,7 @@ class TodoList extends StateNotifier<List<Todo>> {
     state = [
       for (final todo in state)
         if (todo.id == id)
-          Todo(
+          Task(
             id: todo.id,
             completed: !todo.completed,
             description: todo.description,
@@ -76,14 +76,14 @@ class TodoList extends StateNotifier<List<Todo>> {
     ];
   }
 
-  Future<void> edit(Todo target,String description) async {
+  Future<void> edit(Task target,String description) async {
     var entity = TodoTranslator.todoModelConvert(target,description);
     await TaskEntity.update(entity);
     var ret = await TaskEntity.get();
     state = TodoTranslator.todoConvert(ret);
   }
 
-  Future<void> remove(Todo target) async {
+  Future<void> remove(Task target) async {
     await TaskEntity.delete(target.id);
     var ret = await TaskEntity.get();
     state = TodoTranslator.todoConvert(ret);

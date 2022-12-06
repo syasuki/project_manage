@@ -6,27 +6,43 @@ import '../databases/app_database.dart';
 class EventEntity {
   final int? id;
   final String title;
-  final String text;
-  DateTime dueDate = DateExtention.dateOnlyNow();
+  final String note;
+  final int isAll;
+  DateTime target_date = DateExtention.dateOnlyNow();
+  DateTime? start_time;
+  DateTime? end_time;
+  DateTime? created_at;
+  DateTime? updated_at = DateExtention.dateOnlyNow();
 
   EventEntity(
       {this.id,
         required this.title,
-        required this.text,
-        required this.dueDate});
+        required this.note,
+        required this.isAll,
+        required this.target_date,
+        this.start_time,
+        this.end_time,
+        this.created_at,
+        this.updated_at
+      });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
-      'text': text,
-      "dueDate": dueDate.toUtc().toIso8601String(),
+      'note': note,
+      "isAll": isAll,
+      "target_date":target_date.toUtc().toIso8601String(),
+      "start_time":start_time?.toUtc().toIso8601String(),
+      "end_time":end_time?.toUtc().toIso8601String(),
+      "created_at":created_at?.toUtc().toIso8601String(),
+      "updated_at":updated_at?.toUtc().toIso8601String()
     };
   }
 
   @override
   String toString() {
-    return 'EventEntity{id: $id,title: $title ,text: $text,dueDate: $dueDate.toUtc().toIso8601String()}';
+    return 'EventEntity{id: $id,title: $title ,text: $note,dueDate: $target_date.toUtc().toIso8601String()}';
   }
 
   static Future<void> insert(EventEntity entity) async {
@@ -45,8 +61,14 @@ class EventEntity {
       return EventEntity(
           id: maps[i]['id'],
           title: maps[i]['title'],
-          text: maps[i]['text'],
-          dueDate: DateTime.parse(maps[i]['dueDate']).toLocal());
+          note: maps[i]['note'],
+          isAll: maps[i]['isAll'],
+          target_date: DateTime.parse(maps[i]['target_date']).toLocal(),
+          start_time: DateTime.parse(maps[i]['start_time']).toLocal(),
+          end_time: DateTime.parse(maps[i]['end_time']).toLocal(),
+          created_at: DateTime.parse(maps[i]['created_at']).toLocal(),
+          updated_at: DateTime.parse(maps[i]['updated_at']).toLocal()
+      );
     });
   }
 

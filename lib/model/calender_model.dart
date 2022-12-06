@@ -15,7 +15,7 @@ class CalenderCell {
   });
 
   final DateTime targetDate;
-  final List<Todo> todoList;
+  final List<Task> todoList;
 
   @override
   String toString() {
@@ -52,14 +52,14 @@ class CalenderModel extends StateNotifier<List<CalenderCell>> {
   }
 
 
-  Future<void> edit(Todo target,String description) async {
+  Future<void> edit(Task target,String description) async {
     var entity = TodoTranslator.todoModelConvert(target,description);
     await TaskEntity.update(entity);
     var ret = await TaskEntity.get();
     //state = TodoTranslator.todoConvert(ret);
   }
 
-  Future<void> remove(Todo target) async {
+  Future<void> remove(Task target) async {
     await TaskEntity.delete(target.id);
     var ret = await TaskEntity.get();
     //state = TodoTranslator.todoConvert(ret);

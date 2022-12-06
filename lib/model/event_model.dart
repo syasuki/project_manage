@@ -45,18 +45,9 @@ class TodoList extends StateNotifier<List<Event>> {
     var entity = await EventEntity.get();
     //state = TodoTranslator.todoConvert(entity);
   }
-/*
-  void add(String description) {
-    state = [
-      ...state,
-      Todo(
-        id: 1,
-        description: description,
-      ),
-    ];
-  }*/
+
   Future<void> add(String description,DateTime targetDate) async {
-    var entity = EventEntity(title: 'title', text: description, dueDate: targetDate);
+    var entity = EventEntity(title: 'title', note: description, isAll: 1, target_date: DateExtention.dateOnlyNow());
     await EventEntity.insert(entity);
 
     var ret = await EventEntity.get();

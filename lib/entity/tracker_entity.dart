@@ -3,63 +3,61 @@ import 'package:sqflite/sqflite.dart';
 
 import '../databases/app_database.dart';
 
-class SectionEntity {
+class TaskTrackerEntity {
   final int? id;
-  final String name;
-  final String description;
+  final int task_id;
+  final String note;
   DateTime created_at = DateExtention.dateOnlyNow();
   DateTime updated_at = DateExtention.dateOnlyNow();
 
-  SectionEntity(
+  TaskTrackerEntity(
       {this.id,
-        required this.name,
-        required this.description,
+        required this.task_id,
+        required this.note,
         required this.created_at,
-        required this.updated_at
-      });
+        required this.updated_at});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'name': name,
-      'description': description,
-      "created_at": created_at.toUtc().toIso8601String(),
+      'task_id':task_id,
+      'note': note,
+      'created_at': created_at.toUtc().toIso8601String(),
       "updated_at": updated_at.toUtc().toIso8601String(),
     };
   }
 
   @override
   String toString() {
-    return 'SectionEntity{id: $id,name: $name ,description: $description,created_at: $created_at.toUtc().toIso8601String(),updated_at: $updated_at.toUtc().toIso8601String()}';
+    return 'TaskTrackerEntity{id: $id,task_id: $task_id,note: $note ,created_at: $created_at.toUtc().toIso8601String(),updated_at: $updated_at.toUtc().toIso8601String()}';
   }
 
-  static Future<void> insert(SectionEntity entity) async {
+  static Future<void> insert(TaskTrackerEntity entity) async {
     final Database db = await AppDatabase.database;
     await db.insert(
-      'section',
+      'task_tracker',
       entity.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  static Future<List<SectionEntity>> get() async {
+  static Future<List<TaskTrackerEntity>> get() async {
     final Database db = await AppDatabase.database;
-    final List<Map<String, dynamic>> maps = await db.query('section');
+    final List<Map<String, dynamic>> maps = await db.query('task_tracker');
     return List.generate(maps.length, (i) {
-      return SectionEntity(
+      return TaskTrackerEntity(
           id: maps[i]['id'],
-          name: maps[i]['name'],
-          description: maps[i]['description'],
+          task_id: maps[i]['task_id'],
+          note: maps[i]['note'],
           created_at: DateTime.parse(maps[i]['created_at']).toLocal(),
-          updated_at: DateTime.parse(maps[i]['updated_at']).toLocal()
-      );
+          updated_at: DateTime.parse(maps[i]['updated_at']).toLocal());
     });
   }
 
-  static Future<void> update(SectionEntity entity) async {
+  static Future<void> update(TaskTrackerEntity entity) async {
     final db = await AppDatabase.database;
     await db.update(
-      'section',
+      'task_tracker',
       entity.toMap(),
       where: "id = ?",
       whereArgs: [entity.id],
@@ -70,7 +68,7 @@ class SectionEntity {
   static Future<void> delete(int id) async {
     final db = await AppDatabase.database;
     await db.delete(
-      'section',
+      'task_tracker',
       where: "id = ?",
       whereArgs: [id],
     );

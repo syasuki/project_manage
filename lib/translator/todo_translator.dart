@@ -7,10 +7,10 @@ import '../model/todo_model.dart';
 
 class TodoTranslator {
   static const _uuid = Uuid();
-  static List<Todo> todoConvert(List<TaskEntity> entityList) {
-    var todoList = <Todo>[];
+  static List<Task> todoConvert(List<TaskEntity> entityList) {
+    var todoList = <Task>[];
     for (var entity in entityList) {
-      var todo = Todo(id: entity.id!,
+      var todo = Task(id: entity.id!,
         description: entity.note,
         targetDate: entity.deadline
       );
@@ -18,7 +18,7 @@ class TodoTranslator {
     }
     return todoList;
   }
-  static TaskEntity todoModelConvert(Todo model, String description) {
+  static TaskEntity todoModelConvert(Task model, String description) {
     var entity = TaskEntity(title: 'title', note: description, status: 1, progress: 0, priority: 1, section_id: 1, deadline: DateExtention.dateOnlyNow(), created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
     return entity;
   }

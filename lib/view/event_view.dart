@@ -25,7 +25,12 @@ class Event extends HookConsumerWidget {
 
 
     return  Scaffold(
-      appBar: AppBar(title: Text("イベント")),
+      appBar: AppBar(
+        title: Text("スケジュール追加",
+        style: TextStyle(color: Colors.black87)),
+    backgroundColor: Colors.grey[200],
+
+    ),
       body:GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(

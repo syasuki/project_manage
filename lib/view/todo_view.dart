@@ -18,9 +18,9 @@ final activeFilterKey = UniqueKey();
 final completedFilterKey = UniqueKey();
 final allFilterKey = UniqueKey();
 
-/// Creates a [TodoList] and initialise it with pre-defined values.
-final todoListProvider = StateNotifierProvider<TodoList, List<Todo>>((ref) {
-  var todoList = TodoList();
+/// Creates a [TaskList] and initialise it with pre-defined values.
+final todoListProvider = StateNotifierProvider<TaskList, List<Task>>((ref) {
+  var todoList = TaskList();
   todoList.initGet();
   return todoList;
 });
@@ -41,7 +41,7 @@ final uncompletedTodosCount = Provider<int>((ref) {
 });
 
 /// The list of todos after applying of [todoListFilter].
-final filteredTodos = Provider<List<Todo>>((ref) {
+final filteredTodos = Provider<List<Task>>((ref) {
   final filter = ref.watch(todoListFilter);
   final todos = ref.watch(todoListProvider);
 
@@ -252,8 +252,8 @@ class Title extends StatelessWidget {
   }
 }
 
-/// A provider which exposes the [Todo] displayed by a [TodoItem].
-final _currentTodo = Provider<Todo>((ref) => throw UnimplementedError());
+/// A provider which exposes the [Task] displayed by a [TodoItem].
+final _currentTodo = Provider<Task>((ref) => throw UnimplementedError());
 
 class TodoItem extends HookConsumerWidget {
   const TodoItem({Key? key}) : super(key: key);
