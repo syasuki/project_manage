@@ -42,8 +42,6 @@ class EventAdd extends HookConsumerWidget {
               //const Title(),
               TextField(
                 key: addTodoKey,
-                maxLines: 1,
-                minLines: 1,
                 controller: titleController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),

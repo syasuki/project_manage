@@ -42,7 +42,7 @@ class EventEntity {
 
   @override
   String toString() {
-    return 'EventEntity{id: $id,title: $title ,text: $note,dueDate: $target_date.toUtc().toIso8601String()}';
+    return 'EventEntity{id: $id,title: $title ,text: $note,target_date: $target_date.toUtc().toIso8601String()}';
   }
 
   static Future<void> insert(EventEntity entity) async {
@@ -64,10 +64,10 @@ class EventEntity {
           note: maps[i]['note'],
           isAll: maps[i]['isAll'],
           target_date: DateTime.parse(maps[i]['target_date']).toLocal(),
-          start_time: DateTime.parse(maps[i]['start_time']).toLocal(),
-          end_time: DateTime.parse(maps[i]['end_time']).toLocal(),
-          created_at: DateTime.parse(maps[i]['created_at']).toLocal(),
-          updated_at: DateTime.parse(maps[i]['updated_at']).toLocal()
+          start_time: maps[i]['start_time'] != null ? DateTime.parse(maps[i]['start_time']).toLocal() : null,
+          end_time: maps[i]['end_time'] != null ? DateTime.parse(maps[i]['end_time']).toLocal() : null,
+          created_at: maps[i]['created_at'] != null ? DateTime.parse(maps[i]['created_at']).toLocal() : null,
+          updated_at: maps[i]['updated_at'] != null ? DateTime.parse(maps[i]['updated_at']).toLocal() : null
       );
     });
   }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:pro_sche/entity/event_entity.dart';
 import 'package:pro_sche/translator/calender_translator.dart';

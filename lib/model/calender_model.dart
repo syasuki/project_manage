@@ -1,9 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:pro_sche/model/todo_model.dart';
 import 'package:pro_sche/translator/calender_translator.dart';
 import 'package:state_notifier/state_notifier.dart';
 
+import '../entity/event_entity.dart';
 import '../entity/todo_entity.dart';
 import '../translator/todo_translator.dart';
 
@@ -11,11 +11,13 @@ import '../translator/todo_translator.dart';
 class CalenderCell {
   const CalenderCell({
     required this.targetDate,
-    required this.todoList
+    required this.todoList,
+    required this.eventList,
   });
 
   final DateTime targetDate;
   final List<Task> todoList;
+  final List<EventEntity> eventList;
 
   @override
   String toString() {
@@ -37,11 +39,13 @@ class CalenderModel extends StateNotifier<List<CalenderCell>> {
   */
   Future<void> initGet() async {
     var entity = await TaskEntity.get();
-    state = CalenderTranslator.calenderConvert(entity);
+    var evententity = await EventEntity.get();
+    state = CalenderTranslator.calenderConvert(entity,evententity);
   }
   Future<void> get() async {
     var entity = await TaskEntity.get();
-    state = CalenderTranslator.calenderConvert(entity);
+    var evententity = await EventEntity.get();
+    state = CalenderTranslator.calenderConvert(entity,evententity);
   }
 
   Future<void> add(String description,DateTime targetDate) async {
