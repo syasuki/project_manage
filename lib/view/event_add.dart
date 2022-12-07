@@ -42,8 +42,15 @@ class EventAdd extends HookConsumerWidget {
               //const Title(),
               TextField(
                 key: addTodoKey,
+                maxLines: 1,
+                minLines: 1,
                 controller: titleController,
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'タイトル',
+                  //この一行
+                  alignLabelWithHint: true,
                   //labelText: 'What needs to be done?',
                 ),
                 onSubmitted: (value) {
@@ -60,8 +67,7 @@ class EventAdd extends HookConsumerWidget {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   filled: true,
-                  hintText: 'プレースホルダ',
-                  labelText: 'ラベル',
+                  labelText: '内容',
                   //この一行
                   alignLabelWithHint: true,
                 ),
