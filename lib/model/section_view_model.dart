@@ -41,6 +41,22 @@ class PageInfo {
     return 'CalenderCell(description: $todoList, completed: )';
   }
 }
+class CircleInfo {
+  const CircleInfo({
+    required this.tabName,
+    required this.todoList,
+    required this.eventList,
+  });
+
+  final String tabName;
+  final List<Task> todoList;
+  final List<EventEntity> eventList;
+
+  @override
+  String toString() {
+    return 'CalenderCell(description: $todoList, completed: )';
+  }
+}
 
 
 
