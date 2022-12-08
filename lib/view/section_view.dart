@@ -14,17 +14,13 @@ class Section extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final section = ref.watch(sectionPageProvider);
     var outputFormat = DateFormat('yyyy-MM-dd');
+    /*
     final _tab = <Tab>[
-      Tab(text: 'iOS'),
-      Tab(text: 'Andorid'),
-      Tab(text: 'Flutter'),
-      Tab(text: 'Laravel'),
-      Tab(text: 'postgres'),
-      Tab(text: 'Flutter'),
-      Tab(text: 'Laravel'),
-      Tab(text: 'postgres'),
+      for (int i = 0; i < section.pageInfos.length; i++) ...{
+        Tab(text: section.pageInfos[i].tabName)
+      }
     ];
-
+*/
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
           context: context,
@@ -39,7 +35,7 @@ class Section extends HookConsumerWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: DefaultTabController(
-        length: _tab.length,
+        length: section.pageInfos.length,
         child: Scaffold(
           appBar: AppBar(
             title: Text("項目", style: TextStyle(color: Colors.black87)),
@@ -49,7 +45,11 @@ class Section extends HookConsumerWidget {
               labelColor: Colors.blue,
               indicatorColor: Colors.blue,
               unselectedLabelColor: Colors.black87,
-              tabs: _tab,
+              tabs: [
+                for (int i = 0; i < section.pageInfos.length; i++) ...{
+                  Tab(text: section.pageInfos[i].tabName)
+                }
+              ],
             ),
             actions: <Widget>[
               IconButton(
@@ -65,14 +65,9 @@ class Section extends HookConsumerWidget {
             ],
           ),
           body: TabBarView(children: <Widget>[
-            SectionPageItem(),
-            SectionPageItem(),
-            SectionPageItem(),
-            SectionPageItem(),
-            SectionPageItem(),
-            SectionPageItem(),
-            SectionPageItem(),
-            SectionPageItem(),
+            for (int i = 0; i < section.pageInfos.length; i++) ...{
+              SectionPageItem()
+            }
           ]),
         ),
       ),

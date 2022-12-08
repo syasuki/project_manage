@@ -12,6 +12,6 @@ class SectionTranslator {
       var page = PageInfo(tabName: entity.name, circleInfo: CircleInfo(values: []));
       infos.add(page);
     }
-    return SectionPage(pageInfos: []);
+    return SectionPage(pageInfos: infos);
   }
 }
