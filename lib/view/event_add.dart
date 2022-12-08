@@ -56,10 +56,11 @@ class EventAdd extends HookConsumerWidget {
                   //newTodoController.clear();
                 },
               ),
+
               TextField(
                 key: addTodoKey,
-                maxLines: 3,
-                minLines: 3,
+                maxLines: 5,
+                minLines: 5,
 
                 controller: noteController,
                 decoration: const InputDecoration(

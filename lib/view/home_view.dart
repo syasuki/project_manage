@@ -151,7 +151,7 @@ class Home extends HookConsumerWidget {
                                 backgroundColor: Colors.grey,
                                 valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightBlueAccent),
                                 minHeight: 10,
-                                value: 0.4,
+                                value: 0.13,
                               ),
                             ),
                           ),

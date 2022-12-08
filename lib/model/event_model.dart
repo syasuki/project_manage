@@ -47,7 +47,7 @@ class EventList extends StateNotifier<List<Event>> {
   }
 
   Future<void> add(String description,DateTime targetDate) async {
-    var entity = EventEntity(title: 'title', note: description, isAll: 1, target_date: DateExtention.dateOnlyNow());
+    var entity = EventEntity(title: description, note: description, isAll: 1, target_date: targetDate);
     await EventEntity.insert(entity);
 
     var ret = await EventEntity.get();

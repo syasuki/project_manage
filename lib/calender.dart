@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pro_sche/model/calender_model.dart';
+import 'package:pro_sche/model/todo_model.dart';
 
 final _currentIndex = StateProvider<int>((ref) {
   return 1200;
 });
-final calenderListProvider = StateNotifierProvider<CalenderModel, List<CalenderCell>>((ref) {
+final calenderListProvider =
+    StateNotifierProvider<CalenderModel, List<CalenderCell>>((ref) {
   var calenderList = CalenderModel();
   calenderList.initGet();
   return calenderList;
@@ -16,9 +18,11 @@ class CalendarPageView extends HookConsumerWidget {
   const CalendarPageView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    final visibleMonth = ref.watch(_currentIndex).visibleDateTime.month.monthName;
-    final visibleYear = ref.watch(_currentIndex).visibleDateTime.year.toString();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final visibleMonth =
+        ref.watch(_currentIndex).visibleDateTime.month.monthName;
+    final visibleYear =
+        ref.watch(_currentIndex).visibleDateTime.year.toString();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,9 +39,9 @@ class CalendarPageView extends HookConsumerWidget {
             itemBuilder: (context, index) {
               return CalendarPage(index.visibleDateTime);
             },
-    scrollDirection:Axis.vertical,
+            scrollDirection: Axis.vertical,
             onPageChanged: (index) {
-                ref.read(_currentIndex.notifier).state = index;
+              ref.read(_currentIndex.notifier).state = index;
             },
           ),
         ),
@@ -48,9 +52,9 @@ class CalendarPageView extends HookConsumerWidget {
 
 class CalendarPage extends HookConsumerWidget {
   const CalendarPage(
-      this.visiblePageDate, {
-        Key? key,
-      }) : super(key: key);
+    this.visiblePageDate, {
+    Key? key,
+  }) : super(key: key);
 
   final DateTime visiblePageDate;
 
@@ -68,8 +72,9 @@ class CalendarPage extends HookConsumerWidget {
     final firstDayOfTheMonth = DateTime(dateTime.year, dateTime.month, 1);
     return firstDayOfTheMonth.add(firstDayOfTheMonth.weekday.daysDuration);
   }
+
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final currentDates = _getCurrentDates(visiblePageDate);
     return Column(
       children: [
@@ -97,15 +102,7 @@ class CalendarPage extends HookConsumerWidget {
   }
 }
 
-const List<String> _DaysOfTheWeek = [
-  '日',
-  '月',
-  '火',
-  '水',
-  '木',
-  '金',
-  '土'
-];
+const List<String> _DaysOfTheWeek = ['日', '月', '火', '水', '木', '金', '土'];
 
 /// 曜日のラベルを横並びに表示する。
 class DaysOfTheWeek extends HookConsumerWidget {
@@ -161,107 +158,138 @@ class _DateCell extends HookConsumerWidget {
         decoration: BoxDecoration(
           border: Border(
             top: BorderSide(color: Theme.of(context).dividerColor, width: 1),
-            right:
-            BorderSide(color: Theme.of(context).dividerColor, width: 1),
+            right: BorderSide(color: Theme.of(context).dividerColor, width: 1),
           ),
         ),
         child: InkWell(
-          onTap: () async{
+          onTap: () async {
             await showModalBottomSheet(
                 context: context,
-                builder: (context)=> DraggableScrollableSheet(  //これ！
-                    initialChildSize: 1,
-                    builder: (BuildContext context, ScrollController
-                    scrollController)=>
-                        Container(
-                          child: Column(
-                              children: [
-                                IconButton(icon:Icon(Icons.expand_more_outlined), onPressed: () { Navigator.of(context).pop(); },),
-                            Expanded(child:ListView(
-                            shrinkWrap: true,
-                            children: ["a","b","c","a","b","c","a","b","c"].map((e) =>
-                                ListTile(
-                                  title: Text(
-                                    e,
-                                    style: TextStyle(
-                                        fontSize: 18
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    //Navigator.of(context).pop();
-                                  },
-                                )
-                            ).toList(),
+                builder: (context) => DraggableScrollableSheet(
+                      //これ！
+                      initialChildSize: 1,
+                      builder: (BuildContext context,
+                              ScrollController scrollController) =>
+                          Container(
+                        child: Column(children: [
+                          IconButton(
+                            icon: Icon(Icons.expand_more_outlined),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
                           ),
-                        )
-                ]),
-                ),
-            )
-            );
+                          Expanded(
+                            child: ListView(
+                              shrinkWrap: true,
+                              children:
+                                  ["a", "b", "c", "a", "b", "c", "a", "b", "c"]
+                                      .map((e) => ListTile(
+                                            title: Text(
+                                              e,
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                            onTap: () {
+                                              //Navigator.of(context).pop();
+                                            },
+                                          ))
+                                      .toList(),
+                            ),
+                          )
+                        ]),
+                      ),
+                    ));
           },
-          child:Column(
-          children: [
-            Text(date.day.toString()),
-
-            for(int i = 0; i < ref.watch(calenderListProvider).length; i++) ... {
-              ifText((date.day == ref.watch(calenderListProvider)[i].targetDate.day &&
-                  date.month == ref.watch(calenderListProvider)[i].targetDate.month &&
-                  date.year == ref.watch(calenderListProvider)[i].targetDate.year),ref.watch(calenderListProvider)[i])
-
-            },
-
-          ],
-        ),),
+          child: Column(
+            children: [
+              Text(date.day.toString()),
+              for (int i = 0;
+                  i < ref.watch(calenderListProvider).length;
+                  i++) ...{
+                ifText(
+                    (date.day == ref.watch(calenderListProvider)[i].targetDate.day &&
+                        date.month == ref.watch(calenderListProvider)[i].targetDate.month &&
+                        date.year == ref.watch(calenderListProvider)[i].targetDate.year),
+                    ref.watch(calenderListProvider)[i])
+              },
+              Spacer(),
+              for (int i = 0;
+              i < ref.watch(calenderListProvider).length;
+              i++) ...{
+                TaskRow(
+                    (date.day == ref.watch(calenderListProvider)[i].targetDate.day &&
+                        date.month == ref.watch(calenderListProvider)[i].targetDate.month &&
+                        date.year == ref.watch(calenderListProvider)[i].targetDate.year),
+                    ref.watch(calenderListProvider)[i])
+              },
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-Widget ifText(bool value,CalenderCell cell) {
 
-  if(value){
+Widget ifText(bool value, CalenderCell cell) {
+  if (value) {
     return Column(
       children: [
         //Text(date.year.toString() + date.day.toString()),
 
-        for(int i = 0; i < cell.todoList.length; i++) ... {
+        for (int i = 0; i < cell.eventList.length; i++) ...{
           Padding(
             padding: EdgeInsets.only(bottom: 1),
-              child:
-                Container(width: double.infinity,
-                  height: 12,
-                  color: Colors.red,
-                  child:Text(
-                    cell.todoList[i].description,
+            child: Container(
+              width: double.infinity,
+              height: 12,
+              color: Colors.red,
+              child: Text(cell.eventList[i].title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white70,fontSize: 9),
-                      overflow: TextOverflow.ellipsis
-              ),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
+                      fontSize: 9),
+                  overflow: TextOverflow.ellipsis),
             ),
           )
         }
       ],
     );
-  }else{
+  } else {
     return Column(
-      children: [
-
-      ],
+      children: [],
     );
   }
+}
+Widget TaskRow(bool value, CalenderCell cell) {
+  if (value) {
+    return Row(
+      children: [
+        //Text(date.year.toString() + date.day.toString()),
 
+        for (int i = 0; i < cell.todoList.length; i++) ...{
+          Padding(
+            padding: EdgeInsets.only(bottom: 1),
+            child: Icon(Icons.circle,size: 12,)
+          )
+        }
+      ],
+    );
+  } else {
+    return SizedBox.shrink();
+  }
 }
 
 Widget ifText2(bool value) {
   if (value) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8),
-      child:
-      Container(width: double.infinity,
+      child: Container(
+        width: double.infinity,
         color: Colors.red,
-        child:Text(
+        child: Text(
           "test",
           textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white70),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white70),
         ),
       ),
     );
@@ -270,9 +298,7 @@ Widget ifText2(bool value) {
   }
 }
 
-
 extension DateExtension on int {
-
   Duration get daysDuration {
     return Duration(days: (this == 7) ? 0 : -this);
   }
