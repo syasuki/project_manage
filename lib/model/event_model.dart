@@ -31,7 +31,7 @@ class Event {
 class EventModel extends StateNotifier<Event>{
   EventModel(super.state);
   Future<void> add(String description,DateTime targetDate) async {
-    var entity = EventEntity(title: 'title', note: description, isAll: 1, target_date: DateExtention.dateOnlyNow());
+    var entity = EventEntity(title: 'title', note: description, isAll: 1, target_date: targetDate);
     await EventEntity.insert(entity);
     var ret = await EventEntity.get();
   }

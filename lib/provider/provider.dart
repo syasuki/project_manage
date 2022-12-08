@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pro_sche/model/event_model.dart';
 import 'package:pro_sche/model/section_model.dart';
 
+import '../model/section_view_model.dart';
 import '../model/todo_model.dart';
 
 /// Creates a [TaskList] and initialise it with pre-defined values.
@@ -22,4 +23,10 @@ final sectionListProvider = StateNotifierProvider<SectionList, List<Section>>((r
   var list = SectionList();
   list.initGet();
   return list;
+});
+
+final sectionPageProvider = StateNotifierProvider<SectionPageModel, SectionPage>((ref) {
+  var model = SectionPageModel();
+  model.initGet();
+  return model;
 });
