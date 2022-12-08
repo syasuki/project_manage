@@ -1,12 +1,10 @@
 
 import 'package:pro_sche/util/date_extention.dart';
-import 'package:uuid/uuid.dart';
 
 import '../entity/todo_entity.dart';
 import '../model/todo_model.dart';
 
 class TodoTranslator {
-  static const _uuid = Uuid();
   static List<Task> todoConvert(List<TaskEntity> entityList) {
     var todoList = <Task>[];
     for (var entity in entityList) {

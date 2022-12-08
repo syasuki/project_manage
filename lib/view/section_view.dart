@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pro_sche/provider/provider.dart';
 import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:pro_sche/view/ui/pie_chart.dart';
@@ -11,6 +12,7 @@ class Section extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final section = ref.watch(sectionPageProvider);
     var outputFormat = DateFormat('yyyy-MM-dd');
     final _tab = <Tab>[
       Tab(text: 'iOS'),

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pro_sche/entity/section_entity.dart';
 import 'package:pro_sche/model/todo_model.dart';
+import 'package:pro_sche/translator/section_translator.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../entity/event_entity.dart';
+import '../entity/todo_entity.dart';
 
 @immutable
 class SectionPage {
@@ -46,10 +48,12 @@ class SectionPageModel extends StateNotifier<SectionPage> {
 
   Future<void> initGet() async {
     var entity = await SectionEntity.get();
+    var tasks = await TaskEntity.get();
+    state = SectionTranslator.convert(tasks,entity);
     /*
     var entity = await TaskEntity.get();
     var evententity = await EventEntity.get();
-    state = CalenderTranslator.calenderConvert(entity,evententity);
+
      */
   }
   Future<void> get() async {
