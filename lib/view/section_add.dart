@@ -9,32 +9,18 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../calender.dart';
 import '../provider/provider.dart';
 
-class EventAdd extends HookConsumerWidget {
-  const EventAdd({Key? key}) : super(key: key);
+class SectionAdd extends HookConsumerWidget {
+  const SectionAdd({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleController = useTextEditingController();
-    final noteController = useTextEditingController();
-    var outputFormat = DateFormat('yyyy-MM-dd');
-
-    void onPressedRaisedButton() async {
-      final DateTime? picked = await showDatePicker(
-          context: context,
-          initialDate: ref.watch(dateProvider),
-          firstDate: new DateTime(2018),
-          lastDate: new DateTime.now().add(new Duration(days: 360))
-      );
-      if (picked != null) {
-        ref.read(dateProvider.notifier).state = picked;
-      }
-    }
-
+    final nameController = useTextEditingController();
+    final discriptController = useTextEditingController();
 
     return  GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: Text("EventAdd")),
+        appBar: AppBar(title: Text("項目追加")),
         body: Scrollbar(
           child:ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
@@ -42,11 +28,11 @@ class EventAdd extends HookConsumerWidget {
               //const Title(),
               TextField(
                 key: addTodoKey,
-                controller: titleController,
+                controller: nameController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   filled: true,
-                  labelText: 'タイトル',
+                  labelText: '項目名',
                   //この一行
                   alignLabelWithHint: true,
                   //labelText: 'What needs to be done?',
@@ -62,11 +48,11 @@ class EventAdd extends HookConsumerWidget {
                 maxLines: 5,
                 minLines: 5,
 
-                controller: noteController,
+                controller: discriptController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   filled: true,
-                  labelText: '内容',
+                  labelText: '説明',
                   //この一行
                   alignLabelWithHint: true,
                 ),
@@ -75,13 +61,6 @@ class EventAdd extends HookConsumerWidget {
                   //newTodoController.clear();
                 },
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black87,
-                ),
-                child: Text(outputFormat.format(ref.watch(dateProvider))),
-                onPressed: onPressedRaisedButton,
-              ),
               ElevatedButton(
                 child: const Text('追加'),
                 style: ElevatedButton.styleFrom(
@@ -89,10 +68,10 @@ class EventAdd extends HookConsumerWidget {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  ref.read(eventListProvider.notifier).add(titleController.text,ref.watch(dateProvider));
+                  ref.read(sectionListProvider.notifier).add(nameController.text,discriptController.text);
                   ref.read(calenderListProvider.notifier).get();
-                  titleController.clear();
-                  noteController.clear();
+                  nameController.clear();
+                  discriptController.clear();
                   AwesomeDialog(
                     context: context,
                     animType: AnimType.scale,

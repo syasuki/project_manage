@@ -255,9 +255,7 @@ Widget ifText(bool value, CalenderCell cell) {
       ],
     );
   } else {
-    return Column(
-      children: [],
-    );
+    return SizedBox.shrink();
   }
 }
 Widget TaskRow(bool value, CalenderCell cell) {

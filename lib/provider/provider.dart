@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pro_sche/model/event_model.dart';
+import 'package:pro_sche/model/section_model.dart';
 
 import '../model/todo_model.dart';
 
@@ -13,6 +14,12 @@ final todoListProvider = StateNotifierProvider<TaskList, List<Task>>((ref) {
 /// Creates a [TaskList] and initialise it with pre-defined values.
 final eventListProvider = StateNotifierProvider<EventList, List<Event>>((ref) {
   var list = EventList();
+  list.initGet();
+  return list;
+});
+
+final sectionListProvider = StateNotifierProvider<SectionList, List<Section>>((ref) {
+  var list = SectionList();
   list.initGet();
   return list;
 });

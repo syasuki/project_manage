@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pro_sche/entity/section_entity.dart';
+import 'package:pro_sche/util/date_extention.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:uuid/uuid.dart';
 
@@ -27,28 +29,20 @@ class Section {
 class SectionList extends StateNotifier<List<Section>> {
   SectionList([List<Section>? initialSections]) : super(initialSections ?? []);
 
-  void add(String description) {
-    state = [
-      ...state,
-      Section(
-        id: _uuid.v4(),
-        description: description,
-      ),
-    ];
+  Future<void> initGet() async {
+    var ret = await SectionEntity.get();
+    //CalenderTranslator.todoConvert(ret);
+    //state = TodoTranslator.todoConvert(ret);
+
   }
 
-  void toggle(String id) {
-    state = [
-      for (final section in state)
-        if (section.id == id)
-          Section(
-            id: section.id,
-            completed: !section.completed,
-            description: section.description,
-          )
-        else
-          section,
-    ];
+  Future<void> add(String name,String description) async {
+    var entity = SectionEntity(name: name, description: description,created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
+    await SectionEntity.insert(entity);
+    var ret = await SectionEntity.get();
+    //CalenderTranslator.todoConvert(ret);
+    //state = TodoTranslator.todoConvert(ret);
+
   }
 
   void edit({required String id, required String description}) {

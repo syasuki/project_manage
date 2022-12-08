@@ -113,7 +113,7 @@ class PieChartSample1State extends State {
           case 0:
             return PieChartSectionData(
               color: color0.withOpacity(opacity),
-              value: 25,
+              value: 30,
               title: '',
               radius: 30,
               titleStyle: const TextStyle(
