@@ -25,18 +25,15 @@ class Achieve extends HookConsumerWidget {
           context: context,
           initialDate: ref.watch(dateProvider),
           firstDate: new DateTime(2018),
-          lastDate: new DateTime.now().add(new Duration(days: 360))
-      );
+          lastDate: new DateTime.now().add(new Duration(days: 360)));
       if (picked != null) {
         ref.read(dateProvider.notifier).state = picked;
       }
     }
 
-
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text("実績",
-            style: TextStyle(color: Colors.black87)),
+        title: Text("実績", style: TextStyle(color: Colors.black87)),
         backgroundColor: Colors.grey[200],
         actions: <Widget>[
           IconButton(
@@ -44,95 +41,107 @@ class Achieve extends HookConsumerWidget {
               Icons.settings,
               color: Colors.black87,
             ),
-            onPressed: () =>{
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => const Setting()))
+            onPressed: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Setting()))
             },
           ),
         ],
       ),
-      body:GestureDetector(
+      body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child:Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(Icons.arrow_back_ios),
-                  Text(outputFormat.format(ref.watch(dateProvider))),
-                  Icon(Icons.arrow_forward_ios),
-                  ElevatedButton(
-                    child: const Text('日別'),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white70,
-                      backgroundColor: Colors.red,
-                      shape: const StadiumBorder(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(Icons.arrow_back_ios),
+                    Text(outputFormat.format(ref.watch(dateProvider))),
+                    Icon(Icons.arrow_forward_ios),
+                    ElevatedButton(
+                      child: const Text('日別'),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white70,
+                        backgroundColor: Colors.red,
+                        shape: const StadiumBorder(),
+                      ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
-                  ),
-
-
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("登録Todo",textAlign: TextAlign.center,),
-                  Text("action数",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica Neue',
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text(
+                      "登録Todo",
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  Text("完了Todo",textAlign: TextAlign.center,),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text("12個",textAlign: TextAlign.center),
-                  Text("34回",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Helvetica Neue',
+                    Text(
+                      "action数",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Helvetica Neue',
+                      ),
                     ),
-                  ),
-                  Text("12個",textAlign: TextAlign.center,),
-                ],
-              ),
-              const SizedBox(height: 15),
-              ToggleSwitch(
-                minWidth: (MediaQuery.of(context).size.width - 41) / 2,
-                minHeight: 25,
-                cornerRadius: 20.0,
-                activeBgColors: [[Colors.green[800]!], [Colors.red[800]!]],
-                activeFgColor: Colors.white,
-                inactiveBgColor: Colors.grey,
-                inactiveFgColor: Colors.white,
-                initialLabelIndex: indexprovider,
-                totalSwitches: 2,
-                labels: const ['時系列', '割合'],
-                radiusStyle: true,
-                onToggle: (index) {
-                  //print('switched to: $index');
-                  ref.read(graghTabProvider.notifier).state =
-                      index!;
-                },
-              ),
-              const SizedBox(height: 15),
-              indexprovider == 0 ? BarChartSample4() : PieChartSample1(),
-            ],
-          ),
+                    Text(
+                      "完了Todo",
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text("12個", textAlign: TextAlign.center),
+                    Text(
+                      "34回",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Helvetica Neue',
+                      ),
+                    ),
+                    Text(
+                      "12個",
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                ToggleSwitch(
+                  minWidth: (MediaQuery.of(context).size.width - 41) / 2,
+                  minHeight: 25,
+                  cornerRadius: 20.0,
+                  activeBgColors: [
+                    [Colors.green[800]!],
+                    [Colors.red[800]!]
+                  ],
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.grey,
+                  inactiveFgColor: Colors.white,
+                  initialLabelIndex: indexprovider,
+                  totalSwitches: 2,
+                  labels: const ['時系列', '割合'],
+                  radiusStyle: true,
+                  onToggle: (index) {
+                    //print('switched to: $index');
+                    ref.read(graghTabProvider.notifier).state = index!;
+                  },
+                ),
+                const SizedBox(height: 15),
+                indexprovider == 0 ? BarChartSample4() : PieChartSample1(),
+              ],
+            ),
           ),
         ),
-      ),);
+      ),
+    );
   }
 }

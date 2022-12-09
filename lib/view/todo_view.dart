@@ -28,6 +28,7 @@ enum TodoListFilter {
   completed,
 }
 
+final todoTabProvider = StateProvider<int>((ref) => 0);
 /// The currently active filter.
 final todoListFilter = StateProvider((_) => TodoListFilter.all);
 
@@ -62,6 +63,7 @@ class TodoHome extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(filteredTodos);
     final newTodoController = useTextEditingController();
+    final indexprovider = ref.watch(todoTabProvider);
 
     var outputFormat = DateFormat('yyyy-MM-dd');
 
@@ -113,34 +115,18 @@ class TodoHome extends HookConsumerWidget {
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
-                initialLabelIndex: 1,
+                initialLabelIndex: indexprovider,
                 totalSwitches: 2,
                 labels: ['タイムライン表示', '登録順表示'],
                 radiusStyle: true,
                 onToggle: (index) {
-                  print('switched to: $index');
+                  //print('switched to: $index');
+                  ref.read(todoTabProvider.notifier).state = index!;
                 },
               ),
 
               const SizedBox(height: 20),
-              const Toolbar(),
-              if (todos.isNotEmpty) const Divider(height: 0),
-              for (var i = 0; i < todos.length; i++) ...[
-                if (i > 0) const Divider(height: 0),
-                Dismissible(
-                  key: ValueKey(todos[i].id),
-                  onDismissed: (_) {
-                    ref.read(todoListProvider.notifier).remove(todos[i]);
-                    ref.read(calenderListProvider.notifier).get();
-                  },
-                  child: ProviderScope(
-                    overrides: [
-                      _currentTodo.overrideWithValue(todos[i]),
-                    ],
-                    child: const TodoItem(),
-                  ),
-                )
-              ],
+              indexprovider == 0 ? Text("a"):TodoList() ,
             ],
           ),
         ),
@@ -153,6 +139,38 @@ class TodoHome extends HookConsumerWidget {
             child: Icon(Icons.add)
         ),
       ),
+    );
+  }
+}
+class TodoList extends HookConsumerWidget {
+  const TodoList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todos = ref.watch(filteredTodos);
+    final itemFocusNode = useFocusNode();
+
+    return Column(
+      children: [
+        const Toolbar(),
+        if (todos.isNotEmpty) const Divider(height: 0),
+        for (var i = 0; i < todos.length; i++) ...[
+          if (i > 0) const Divider(height: 0),
+          Dismissible(
+            key: ValueKey(todos[i].id),
+            onDismissed: (_) {
+              ref.read(todoListProvider.notifier).remove(todos[i]);
+              ref.read(calenderListProvider.notifier).get();
+            },
+            child: ProviderScope(
+              overrides: [
+                _currentTodo.overrideWithValue(todos[i]),
+              ],
+              child: const TodoItem(),
+            ),
+          )
+        ],
+      ],
     );
   }
 }
@@ -284,11 +302,6 @@ class TodoItem extends HookConsumerWidget {
             itemFocusNode.requestFocus();
             textFieldFocusNode.requestFocus();
           },
-          leading: Checkbox(
-            value: todo.completed,
-            onChanged: (value) =>
-                ref.read(todoListProvider.notifier).toggle(todo.id),
-          ),
           title: itemIsFocused
               ? TextField(
             autofocus: true,
