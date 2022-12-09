@@ -70,6 +70,7 @@ class SectionAdd extends HookConsumerWidget {
                 onPressed: () {
                   ref.read(sectionListProvider.notifier).add(nameController.text,discriptController.text);
                   ref.read(calenderListProvider.notifier).get();
+                  ref.read(sectionPageProvider.notifier).get();
                   nameController.clear();
                   discriptController.clear();
                   AwesomeDialog(

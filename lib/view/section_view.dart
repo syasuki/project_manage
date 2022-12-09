@@ -41,7 +41,7 @@ class Section extends HookConsumerWidget {
             title: Text("項目", style: TextStyle(color: Colors.black87)),
             backgroundColor: Colors.grey[200],
             bottom: TabBar(
-              isScrollable: true,
+              isScrollable: false,
               labelColor: Colors.blue,
               indicatorColor: Colors.blue,
               unselectedLabelColor: Colors.black87,

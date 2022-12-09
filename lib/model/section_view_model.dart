@@ -57,10 +57,8 @@ class SectionPageModel extends StateNotifier<SectionPage> {
      */
   }
   Future<void> get() async {
-    /*
-    var entity = await TaskEntity.get();
-    var evententity = await EventEntity.get();
-    state = CalenderTranslator.calenderConvert(entity,evententity);
-     */
+    var entity = await SectionEntity.get();
+    var tasks = await TaskEntity.get();
+    state = SectionTranslator.convert(tasks,entity);
   }
 }
