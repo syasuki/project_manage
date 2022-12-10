@@ -11,6 +11,7 @@ import '../util/date_extention.dart';
 @immutable
 class Task {
   const Task({
+    required this.title,
     required this.description,
     required this.id,
     required this.targetDate,
@@ -18,6 +19,7 @@ class Task {
   });
 
   final int id;
+  final String title;
   final String description;
   final bool completed;
   final DateTime targetDate;
@@ -67,6 +69,7 @@ class TaskList extends StateNotifier<List<Task>> {
         if (todo.id == id)
           Task(
             id: todo.id,
+            title: todo.title,
             completed: !todo.completed,
             description: todo.description,
             targetDate: todo.targetDate,

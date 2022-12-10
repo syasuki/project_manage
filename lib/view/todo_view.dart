@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:pro_sche/util/date_extention.dart';
 import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_add_view.dart';
+import 'package:pro_sche/view/todo_info_page.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../calender.dart';
 import '../model/todo_model.dart';
@@ -299,8 +300,8 @@ class TodoItem extends HookConsumerWidget {
         },
         child: ListTile(
           onTap: () {
-            itemFocusNode.requestFocus();
-            textFieldFocusNode.requestFocus();
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TodoInfoPage(todo)));
           },
           title: itemIsFocused
               ? TextField(

@@ -9,6 +9,7 @@ class TodoTranslator {
     var todoList = <Task>[];
     for (var entity in entityList) {
       var todo = Task(id: entity.id!,
+        title: entity.title,
         description: entity.note,
         targetDate: entity.deadline
       );
