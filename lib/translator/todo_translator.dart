@@ -8,10 +8,18 @@ class TodoTranslator {
   static List<Task> todoConvert(List<TaskEntity> entityList) {
     var todoList = <Task>[];
     for (var entity in entityList) {
-      var todo = Task(id: entity.id!,
+      var todo = Task(
+        id: entity.id!,
         title: entity.title,
         description: entity.note,
-        targetDate: entity.deadline
+        targetDate: entity.deadline,
+        status: entity.status,
+        progress: entity.progress,
+        priority: entity.priority,
+        event_id: entity.event_id,
+        section_id: entity.section_id,
+        created_at: entity.created_at,
+        updated_at: entity.updated_at,
       );
       todoList.add(todo);
     }

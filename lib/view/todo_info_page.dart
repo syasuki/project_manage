@@ -37,12 +37,12 @@ class TodoInfoPage extends HookConsumerWidget {
         appBar: AppBar(title: Text("Task確認")),
         body: Scrollbar(
           child:ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             children: [
               //const Title(),
-              Text("題名"),
+              //Text("題名"),
               Text(
-                "　" + task.title,
+                task.title,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 20,
@@ -51,25 +51,11 @@ class TodoInfoPage extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(height: 15),
+              Text("期日"),
+              Text("　"+outputFormat.format(task.targetDate)),
               Text("説明"),
-              TextField(
-                key: addTodoKey,
-                controller: newTodoController,
-                decoration: const InputDecoration(
-                  //labelText: 'What needs to be done?',
-                ),
-                onSubmitted: (value) {
-                  //ref.read(todoListProvider.notifier).add(newTodoController.text);
-                  //newTodoController.clear();
-                },
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  primary: Colors.black87,
-                ),
-                child: Text(outputFormat.format(ref.watch(dateProvider))),
-                onPressed: onPressedRaisedButton,
-              ),
+              Text("　" + task.description),
+
               ElevatedButton(
                 child: const Text('追加'),
                 style: ElevatedButton.styleFrom(
@@ -77,7 +63,7 @@ class TodoInfoPage extends HookConsumerWidget {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
+                  //ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
                   ref.read(calenderListProvider.notifier).get();
                   newTodoController.clear();
                   AwesomeDialog(

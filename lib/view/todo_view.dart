@@ -309,7 +309,7 @@ class TodoItem extends HookConsumerWidget {
             focusNode: textFieldFocusNode,
             controller: textEditingController,
           )
-              : Text(todo.description),
+              : Text(todo.title),
           trailing: Text(outputFormat.format(todo.targetDate)),
         ),
       ),

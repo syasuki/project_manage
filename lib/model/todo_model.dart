@@ -14,6 +14,13 @@ class Task {
     required this.title,
     required this.description,
     required this.id,
+    required this.status,
+    required this.progress,
+    required this.priority,
+    required this.event_id,
+    this.section_id,
+    required this.created_at,
+    required this.updated_at,
     required this.targetDate,
     this.completed = false,
   });
@@ -21,8 +28,15 @@ class Task {
   final int id;
   final String title;
   final String description;
+  final int? status;
+  final int? progress;
+  final int? priority;
+  final int? event_id;
+  final int? section_id;
   final bool completed;
   final DateTime targetDate;
+  final DateTime created_at;
+  final DateTime updated_at;
 
   @override
   String toString() {
@@ -54,8 +68,8 @@ class TaskList extends StateNotifier<List<Task>> {
       ),
     ];
   }*/
-  Future<void> add(String description,DateTime targetDate) async {
-    var entity = TaskEntity(title: 'title', note: description, status: 1, progress: 0, priority: 1, section_id: 1, deadline: targetDate, created_at: targetDate, updated_at: targetDate);
+  Future<void> add(String title,String description,DateTime targetDate) async {
+    var entity = TaskEntity(title: title, note: description, status: 1, progress: 0, priority: 1, section_id: 1, deadline: targetDate, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
     await TaskEntity.insert(entity);
 
     var ret = await TaskEntity.get();
@@ -73,6 +87,13 @@ class TaskList extends StateNotifier<List<Task>> {
             completed: !todo.completed,
             description: todo.description,
             targetDate: todo.targetDate,
+            status: todo.status,
+            progress: todo.progress,
+            priority: todo.priority,
+            event_id: todo.event_id,
+            section_id: todo.section_id,
+            created_at: todo.created_at,
+            updated_at: todo.updated_at,
           )
         else
           todo,

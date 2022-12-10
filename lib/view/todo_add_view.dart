@@ -14,7 +14,8 @@ class TodoAdd extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final newTodoController = useTextEditingController();
+    final titleController = useTextEditingController();
+    final noteController = useTextEditingController();
     var outputFormat = DateFormat('yyyy-MM-dd');
 
     void onPressedRaisedButton() async {
@@ -41,14 +42,29 @@ class TodoAdd extends HookConsumerWidget {
               //const Title(),
               TextField(
                 key: addTodoKey,
-                controller: newTodoController,
+                controller: titleController,
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: '題名',
+                  //この一行
+                  alignLabelWithHint: true,
                   //labelText: 'What needs to be done?',
                 ),
-                onSubmitted: (value) {
-                  //ref.read(todoListProvider.notifier).add(newTodoController.text);
-                  //newTodoController.clear();
-                },
+              ),
+              TextField(
+                key: addTodoKey,
+                maxLines: 5,
+                minLines: 5,
+                controller: noteController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: '説明',
+                  //この一行
+                  alignLabelWithHint: true,
+                  //labelText: 'What needs to be done?',
+                ),
               ),
               TextButton(
                 style: TextButton.styleFrom(
@@ -64,9 +80,10 @@ class TodoAdd extends HookConsumerWidget {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
+                  ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,ref.watch(dateProvider));
                   ref.read(calenderListProvider.notifier).get();
-                  newTodoController.clear();
+                  titleController.clear();
+                  noteController.clear();
                   AwesomeDialog(
                     context: context,
                     animType: AnimType.scale,
