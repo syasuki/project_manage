@@ -68,8 +68,8 @@ class TaskList extends StateNotifier<List<Task>> {
       ),
     ];
   }*/
-  Future<void> add(String title,String description,DateTime targetDate) async {
-    var entity = TaskEntity(title: title, note: description, status: 1, progress: 0, priority: 1, section_id: 1, deadline: targetDate, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
+  Future<void> add(String title,String description,int status,int progress,int priority,DateTime targetDate) async {
+    var entity = TaskEntity(title: title, note: description, status: status, progress: progress, priority: priority, section_id: 1, deadline: targetDate, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
     await TaskEntity.insert(entity);
 
     var ret = await TaskEntity.get();

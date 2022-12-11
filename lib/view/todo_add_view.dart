@@ -9,6 +9,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../calender.dart';
 import '../provider/provider.dart';
 
+final isSelectedItemProvider = StateProvider<int>((ref) => 2);
+final isSelectedProgresssItemProvider = StateProvider<int>((ref) => 1);
+final isSelectedStatusItemProvider = StateProvider<int>((ref) => 1);
 class TodoAdd extends HookConsumerWidget {
   const TodoAdd({Key? key}) : super(key: key);
 
@@ -17,6 +20,9 @@ class TodoAdd extends HookConsumerWidget {
     final titleController = useTextEditingController();
     final noteController = useTextEditingController();
     var outputFormat = DateFormat('yyyy-MM-dd');
+    final selected = ref.watch(isSelectedItemProvider);
+    final progressSelected = ref.watch(isSelectedProgresssItemProvider);
+    final statusSelected = ref.watch(isSelectedStatusItemProvider);
 
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
@@ -73,6 +79,83 @@ class TodoAdd extends HookConsumerWidget {
                 child: Text(outputFormat.format(ref.watch(dateProvider))),
                 onPressed: onPressedRaisedButton,
               ),
+              DropdownButton(
+                //4
+                items: const [
+                  //5
+                  DropdownMenuItem(
+                    child: Text('低め'),
+                    value: 1,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('通常'),
+                    value: 2,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('高め'),
+                    value: 3,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('緊急'),
+                    value: 4,
+                  ),
+                ],
+                onChanged: (int? value) {
+                  ref.read(isSelectedItemProvider.notifier).state = value!;
+                },
+                //7
+                value: selected,
+              ),
+              DropdownButton(
+                //4
+                items: const [
+                  //5
+                  DropdownMenuItem(
+                    child: Text('0%'),
+                    value: 1,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('10%'),
+                    value: 2,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('20%'),
+                    value: 3,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('30%'),
+                    value: 4,
+                  ),
+                ],
+                onChanged: (int? value) {
+                  ref.read(isSelectedProgresssItemProvider.notifier).state = value!;
+                },
+                //7
+                value: progressSelected,
+              ),
+              DropdownButton(
+                //4
+                items: const [
+                  //5
+                  DropdownMenuItem(
+                    child: Text('新規'),
+                    value: 1,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('進行中'),
+                    value: 2,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('終了'),
+                    value: 3,
+                  ),
+                ],
+                onChanged: (int? value) {
+                  ref.read(isSelectedStatusItemProvider.notifier).state = value!;
+                },
+                //7
+                value: statusSelected,
+              ),
               ElevatedButton(
                 child: const Text('追加'),
                 style: ElevatedButton.styleFrom(
@@ -80,7 +163,7 @@ class TodoAdd extends HookConsumerWidget {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,ref.watch(dateProvider));
+                  ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,statusSelected,progressSelected,selected,ref.watch(dateProvider));
                   ref.read(calenderListProvider.notifier).get();
                   titleController.clear();
                   noteController.clear();
