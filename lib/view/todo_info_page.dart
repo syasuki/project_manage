@@ -7,6 +7,7 @@ import 'package:pro_sche/view/todo_view.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../calender.dart';
+import '../entity/enum_entity.dart';
 import '../model/todo_model.dart';
 import '../provider/provider.dart';
 
@@ -53,6 +54,10 @@ class TodoInfoPage extends HookConsumerWidget {
               const SizedBox(height: 15),
               Text("期日"),
               Text("　"+outputFormat.format(task.targetDate)),
+              Text("ステータス"),
+              Text(EntityUtil.statusText(task.status!)),
+              Text("優先度"),
+              Text(EntityUtil.priorityText(task.priority!)),
               Text("説明"),
               Text("　" + task.description),
 
