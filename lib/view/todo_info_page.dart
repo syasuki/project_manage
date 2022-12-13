@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pro_sche/view/todo_update_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -53,42 +54,43 @@ class TodoInfoPage extends HookConsumerWidget {
               ),
               const SizedBox(height: 15),
               Text("期日"),
-              Text("　"+outputFormat.format(task.targetDate)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Text(outputFormat.format(task.targetDate)),
+              ),
               Text("ステータス"),
-              Text(EntityUtil.statusText(task.status!)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Text(EntityUtil.statusText(task.status!)),
+              ),
               Text("優先度"),
-              Text(EntityUtil.priorityText(task.priority!)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Text(EntityUtil.priorityText(task.priority!)),
+              ),
+              Text("進捗"),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Text(task.priority.toString() + "%"),
+              ),
+
               Text("説明"),
-              Text("　" + task.description),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Text(task.description),
+              ),
+
 
               ElevatedButton(
-                child: const Text('追加'),
+                child: const Text('更新'),
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xff9941d8).withOpacity(0.6),
                   onPrimary: Colors.white,
                 ),
-                onPressed: () {
-                  //ref.read(todoListProvider.notifier).add(newTodoController.text,ref.watch(dateProvider));
-                  ref.read(calenderListProvider.notifier).get();
-                  newTodoController.clear();
-                  AwesomeDialog(
-                    context: context,
-                    animType: AnimType.scale,
-                    headerAnimationLoop: false,
-                    dialogType: DialogType.success,
-                    showCloseIcon: false,
-                    autoHide: Duration(seconds: 2),
-                    title: 'Succes',
-                    desc:
-                    '登録完了',
-                    btnOkOnPress: () {
-                      debugPrint('OnClcik');
-                    },
-                    btnOkIcon: Icons.check_circle,
-                    onDismissCallback: (type) {
-                      //debugPrint('Dialog Dissmiss from callback $type');
-                    },
-                  ).show();
+                onPressed: () => {
+                  // フローティングアクションボタンを押された時の処理.
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => TodoUpdate(task)))
                 },
               ),
             ],
