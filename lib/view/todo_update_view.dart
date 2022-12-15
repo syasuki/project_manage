@@ -4,38 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pro_sche/model/todo_model.dart';
+import 'package:pro_sche/util/date_extention.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../calender.dart';
 import '../provider/provider.dart';
 
-final isSelectedUpdateItemProvider = StateProvider<int>((ref) => 2);
-final isSelectedUpdateProgresssItemProvider = StateProvider<int>((ref) => 1);
-final isSelectedUpdateStatusItemProvider = StateProvider<int>((ref) => 1);
-
 class TodoUpdate extends HookConsumerWidget {
-  final Task task;
-  const TodoUpdate(this.task,{Key? key}) : super(key: key);
-
+  const TodoUpdate({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleController = useTextEditingController();
-    final noteController = useTextEditingController();
+    final task = ref.watch(taskUpdateProvider);
+    final titleController = useTextEditingController(text: task.title);
+    final noteController = useTextEditingController(text: task.description);
     var outputFormat = DateFormat('yyyy-MM-dd');
-    final selected = ref.watch(isSelectedUpdateItemProvider);
-    final progressSelected = ref.watch(isSelectedUpdateProgresssItemProvider);
-    final statusSelected = ref.watch(isSelectedUpdateStatusItemProvider);
-
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
           context: context,
-          initialDate: ref.watch(dateProvider),
+          initialDate: task.targetDate,
           firstDate: new DateTime(2018),
           lastDate: new DateTime.now().add(new Duration(days: 360))
       );
       if (picked != null) {
-        ref.read(dateProvider.notifier).state = picked;
+        ref.read(taskUpdateProvider.notifier).targetDateChange(picked);
       }
     }
 
@@ -79,7 +71,7 @@ class TodoUpdate extends HookConsumerWidget {
                 style: TextButton.styleFrom(
                   primary: Colors.black87,
                 ),
-                child: Text(outputFormat.format(ref.watch(dateProvider))),
+                child: Text(outputFormat.format(task.targetDate)),
                 onPressed: onPressedRaisedButton,
               ),
               DropdownButton(
@@ -104,10 +96,10 @@ class TodoUpdate extends HookConsumerWidget {
                   ),
                 ],
                 onChanged: (int? value) {
-                  ref.read(isSelectedUpdateItemProvider.notifier).state = value!;
+                  ref.read(taskUpdateProvider.notifier).priorityChange(value!);
                 },
                 //7
-                value: selected,
+                value: task.priority,
               ),
               DropdownButton(
                 //4
@@ -131,10 +123,10 @@ class TodoUpdate extends HookConsumerWidget {
                   ),
                 ],
                 onChanged: (int? value) {
-                  ref.read(isSelectedUpdateProgresssItemProvider.notifier).state = value!;
+                  ref.read(taskUpdateProvider.notifier).progressChange(value!);
                 },
                 //7
-                value: progressSelected,
+                value: task.progress,
               ),
               DropdownButton(
                 //4
@@ -154,10 +146,10 @@ class TodoUpdate extends HookConsumerWidget {
                   ),
                 ],
                 onChanged: (int? value) {
-                  ref.read(isSelectedUpdateStatusItemProvider.notifier).state = value!;
+                  ref.read(taskUpdateProvider.notifier).statusChange(value!);
                 },
                 //7
-                value: statusSelected,
+                value: task.status,
               ),
               ElevatedButton(
                 child: const Text('追加'),
@@ -166,7 +158,7 @@ class TodoUpdate extends HookConsumerWidget {
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {
-                  ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,statusSelected,progressSelected,selected,ref.watch(dateProvider));
+                  //ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,statusSelected,progressSelected,selected,ref.watch(dateProvider));
                   ref.read(calenderListProvider.notifier).get();
                   titleController.clear();
                   noteController.clear();

@@ -87,10 +87,11 @@ class TodoInfoPage extends HookConsumerWidget {
                   primary: Color(0xff9941d8).withOpacity(0.6),
                   onPrimary: Colors.white,
                 ),
-                onPressed: () => {
+                onPressed: (){
+                  ref.read(taskUpdateProvider.notifier).initGet(task);
                   // フローティングアクションボタンを押された時の処理.
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => TodoUpdate(task)))
+                      context, MaterialPageRoute(builder: (context) => TodoUpdate()));
                 },
               ),
             ],

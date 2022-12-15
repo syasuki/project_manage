@@ -114,3 +114,32 @@ class TaskList extends StateNotifier<List<Task>> {
     state = TodoTranslator.todoConvert(ret);
   }
 }
+
+class TaskModel extends StateNotifier<Task> {
+  TaskModel() : super(Task(title: "", description: "", id: 1, status: 1, progress: 1, priority: 1, event_id: 1, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow(), targetDate: DateExtention.dateOnlyNow()));
+
+
+  Future<void> initGet(Task task) async {
+    state = task;
+  }
+  Future<void> targetDateChange(DateTime targetDate) async {
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: state.progress, priority: state.priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: targetDate);
+    state = entity;
+  }
+
+  Future<void> priorityChange(int priority) async {
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: state.progress, priority: priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
+    state = entity;
+  }
+
+  Future<void> progressChange(int progress) async {
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: progress, priority: state.priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
+    state = entity;
+  }
+
+  Future<void> statusChange(int status) async {
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: status, progress: state.progress, priority: state.priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
+    state = entity;
+  }
+
+}
