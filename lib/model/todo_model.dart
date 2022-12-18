@@ -142,4 +142,13 @@ class TaskModel extends StateNotifier<Task> {
     state = entity;
   }
 
+  Future<void> edit(Task task,String title,String note) async {
+    var entity = TodoTranslator.taskModelConvert(task,title,note);
+    await TaskEntity.update(entity);
+    var ret = await TaskEntity.get();
+    var retList = TodoTranslator.todoConvert(ret);
+    var retfirst = retList.firstWhere((element) => element.id == task.id);
+    state = retfirst;
+  }
+
 }
