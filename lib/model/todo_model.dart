@@ -59,6 +59,10 @@ class TaskList extends StateNotifier<List<Task>> {
     var entity = await TaskEntity.get();
     state = TodoTranslator.todoConvert(entity);
   }
+  Future<void> get() async {
+    var entity = await TaskEntity.get();
+    state = TodoTranslator.todoConvert(entity);
+  }
 /*
   void add(String description) {
     state = [

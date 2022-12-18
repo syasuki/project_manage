@@ -160,6 +160,8 @@ class TodoUpdate extends HookConsumerWidget {
                 onPressed: () {
                   //ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,statusSelected,progressSelected,selected,ref.watch(dateProvider));
                   ref.read(taskUpdateProvider.notifier).edit(task,titleController.text,noteController.text);
+                  ref.read(todoListProvider.notifier).get();
+                  ref.read(calenderListProvider.notifier).get();
                   titleController.clear();
                   noteController.clear();
                   AwesomeDialog(
