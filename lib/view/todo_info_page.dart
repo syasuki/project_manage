@@ -71,7 +71,7 @@ class TodoInfoPage extends HookConsumerWidget {
               Text("進捗"),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Text(task.priority.toString() + "%"),
+                child: Text(task.progress.toString() + "%"),
               ),
 
               Text("説明"),
