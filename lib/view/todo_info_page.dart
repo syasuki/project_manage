@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pro_sche/view/setting_view.dart';
 import 'package:pro_sche/view/todo_update_view.dart';
 import 'package:pro_sche/view/todo_view.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -36,7 +37,23 @@ class TodoInfoPage extends HookConsumerWidget {
     return  GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: Text("Task確認")),
+        appBar: AppBar(
+          title: Text("task確認",
+              style: TextStyle(color: Colors.black87)),
+          backgroundColor: Colors.grey[200],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.black87,
+              ),
+              onPressed: () =>{
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const Setting()))
+              },
+            ),
+          ],
+        ),
         body: Scrollbar(
           child:ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
