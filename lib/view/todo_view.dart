@@ -176,6 +176,39 @@ class TodoList extends HookConsumerWidget {
   }
 }
 
+class TaskCard extends HookConsumerWidget {
+  const TaskCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todos = ref.watch(filteredTodos);
+    final itemFocusNode = useFocusNode();
+
+    return Column(
+      children: [
+        const Toolbar(),
+        if (todos.isNotEmpty) const Divider(height: 0),
+        for (var i = 0; i < todos.length; i++) ...[
+          if (i > 0) const Divider(height: 0),
+          Dismissible(
+            key: ValueKey(todos[i].id),
+            onDismissed: (_) {
+              ref.read(todoListProvider.notifier).remove(todos[i]);
+              ref.read(calenderListProvider.notifier).get();
+            },
+            child: ProviderScope(
+              overrides: [
+                _currentTodo.overrideWithValue(todos[i]),
+              ],
+              child: const TodoItem(),
+            ),
+          )
+        ],
+      ],
+    );
+  }
+}
+
 class Toolbar extends HookConsumerWidget {
   const Toolbar({
     Key? key,
