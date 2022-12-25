@@ -127,7 +127,7 @@ class TodoHome extends HookConsumerWidget {
               ),
 
               const SizedBox(height: 20),
-              indexprovider == 0 ? Text("a"):TodoList() ,
+              indexprovider == 0 ? TaskCard():TodoList() ,
             ],
           ),
         ),
@@ -198,9 +198,9 @@ class TaskCard extends HookConsumerWidget {
             },
             child: ProviderScope(
               overrides: [
-                _currentTodo.overrideWithValue(todos[i]),
+                _currentTask.overrideWithValue(todos[i]),
               ],
-              child: const TodoItem(),
+              child: const TaskItem(),
             ),
           )
         ],
@@ -302,6 +302,7 @@ class Title extends StatelessWidget {
 
 /// A provider which exposes the [Task] displayed by a [TodoItem].
 final _currentTodo = Provider<Task>((ref) => throw UnimplementedError());
+final _currentTask = Provider<Task>((ref) => throw UnimplementedError());
 
 class TodoItem extends HookConsumerWidget {
   const TodoItem({Key? key}) : super(key: key);
@@ -346,6 +347,29 @@ class TodoItem extends HookConsumerWidget {
           trailing: Text(outputFormat.format(todo.targetDate)),
         ),
       ),
+    );
+  }
+}
+
+class TaskItem extends HookConsumerWidget {
+  const TaskItem({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todo = ref.watch(_currentTask);
+
+    var outputFormat = DateFormat('yyyy-MM-dd');
+
+    return Material(
+      color: Colors.white,
+      elevation: 6,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(todo.title)
+
+        ],
+      )
     );
   }
 }
