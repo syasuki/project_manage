@@ -189,7 +189,6 @@ class TaskCard extends HookConsumerWidget {
         const Toolbar(),
         if (todos.isNotEmpty) const Divider(height: 0),
         for (var i = 0; i < todos.length; i++) ...[
-          if (i > 0) const Divider(height: 0),
           Dismissible(
             key: ValueKey(todos[i].id),
             onDismissed: (_) {
