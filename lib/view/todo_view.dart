@@ -362,13 +362,17 @@ class TaskItem extends HookConsumerWidget {
     return Material(
       color: Colors.white,
       elevation: 6,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(todo.title)
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(todo.title)
 
-        ],
+          ],
+        ),
       )
+
     );
   }
 }
