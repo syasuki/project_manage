@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pro_sche/entity/tracker_entity.dart';
 import 'package:pro_sche/model/task_tracker_model.dart';
 import 'package:pro_sche/translator/calender_translator.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -146,7 +147,20 @@ class TaskModel extends StateNotifier<Task> {
     var ret = await TaskEntity.get();
     var retList = TodoTranslator.todoConvert(ret);
     var retfirst = retList.firstWhere((element) => element.id == task.id);
+    var retTracker = await addTracker(1, "note");
+    print(retTracker);
     state = retfirst;
   }
 
+  Future<List<TaskTrackerEntity>> addTracker(int task_id,String note) async {
+    var entity = TaskTrackerEntity(
+        task_id:task_id,
+        note: note,
+        created_at: DateExtention.dateOnlyNow(),
+    updated_at: DateExtention.dateOnlyNow(),);
+    await TaskTrackerEntity.insert(entity);
+
+    var ret = await TaskTrackerEntity.get();
+    return ret;
+  }
 }
