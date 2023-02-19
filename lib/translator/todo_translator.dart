@@ -1,4 +1,5 @@
 
+import 'package:pro_sche/model/task_tracker_model.dart';
 import 'package:pro_sche/util/date_extention.dart';
 
 import '../entity/todo_entity.dart';
@@ -17,6 +18,7 @@ class TodoTranslator {
         progress: entity.progress,
         priority: entity.priority,
         event_id: entity.event_id,
+        trackers: <TaskTracker>[],
         section_id: entity.section_id,
         created_at: entity.created_at,
         updated_at: entity.updated_at,

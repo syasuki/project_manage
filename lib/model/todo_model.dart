@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pro_sche/model/task_tracker_model.dart';
 import 'package:pro_sche/translator/calender_translator.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:uuid/uuid.dart';
@@ -19,6 +20,7 @@ class Task {
     required this.priority,
     required this.event_id,
     this.section_id,
+    required this.trackers,
     required this.created_at,
     required this.updated_at,
     required this.targetDate,
@@ -34,6 +36,7 @@ class Task {
   final int? event_id;
   final int? section_id;
   final bool completed;
+  final List<TaskTracker> trackers;
   final DateTime targetDate;
   final DateTime created_at;
   final DateTime updated_at;
@@ -63,16 +66,6 @@ class TaskList extends StateNotifier<List<Task>> {
     var entity = await TaskEntity.get();
     state = TodoTranslator.todoConvert(entity);
   }
-/*
-  void add(String description) {
-    state = [
-      ...state,
-      Todo(
-        id: 1,
-        description: description,
-      ),
-    ];
-  }*/
   Future<void> add(String title,String description,int status,int progress,int priority,DateTime targetDate) async {
     var entity = TaskEntity(title: title, note: description, status: status, progress: progress, priority: priority, section_id: 1, deadline: targetDate, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
     await TaskEntity.insert(entity);
@@ -97,6 +90,7 @@ class TaskList extends StateNotifier<List<Task>> {
             priority: todo.priority,
             event_id: todo.event_id,
             section_id: todo.section_id,
+            trackers: todo.trackers,
             created_at: todo.created_at,
             updated_at: todo.updated_at,
           )
@@ -120,33 +114,33 @@ class TaskList extends StateNotifier<List<Task>> {
 }
 
 class TaskModel extends StateNotifier<Task> {
-  TaskModel() : super(Task(title: "", description: "", id: 1, status: 1, progress: 1, priority: 1, event_id: 1, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow(), targetDate: DateExtention.dateOnlyNow()));
+  TaskModel() : super(Task(title: "", description: "", id: 1, status: 1, progress: 1, priority: 1, event_id: 1,trackers: <TaskTracker>[], created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow(), targetDate: DateExtention.dateOnlyNow()));
 
 
   Future<void> initGet(Task task) async {
     state = task;
   }
   Future<void> targetDateChange(DateTime targetDate) async {
-    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: state.progress, priority: state.priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: targetDate);
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: state.progress, priority: state.priority, event_id: state.event_id, trackers: state.trackers,created_at: state.created_at, updated_at: state.updated_at, targetDate: targetDate);
     state = entity;
   }
 
   Future<void> priorityChange(int priority) async {
-    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: state.progress, priority: priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: state.progress, priority: priority, event_id: state.event_id,trackers: state.trackers, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
     state = entity;
   }
 
   Future<void> progressChange(int progress) async {
-    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: progress, priority: state.priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: state.status, progress: progress, priority: state.priority, event_id: state.event_id,trackers: state.trackers, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
     state = entity;
   }
 
   Future<void> statusChange(int status) async {
-    var entity = Task(title: state.title, description: state.description, id: state.id, status: status, progress: state.progress, priority: state.priority, event_id: state.event_id, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
+    var entity = Task(title: state.title, description: state.description, id: state.id, status: status, progress: state.progress, priority: state.priority, event_id: state.event_id,trackers: state.trackers, created_at: state.created_at, updated_at: state.updated_at, targetDate: state.targetDate);
     state = entity;
   }
 
-  Future<void> edit(Task task,String title,String note) async {
+  Future<void> edit(Task task,String title,String note, String tracker_comment) async {
     var entity = TodoTranslator.taskModelConvert(task,title,note);
     await TaskEntity.update(entity);
     var ret = await TaskEntity.get();

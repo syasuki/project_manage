@@ -19,6 +19,7 @@ class TodoUpdate extends HookConsumerWidget {
     final task = ref.watch(taskUpdateProvider);
     final titleController = useTextEditingController(text: task.title);
     final noteController = useTextEditingController(text: task.description);
+    final trackerController = useTextEditingController();
     var outputFormat = DateFormat('yyyy-MM-dd');
     void onPressedRaisedButton() async {
       final DateTime? picked = await showDatePicker(
@@ -168,6 +169,20 @@ class TodoUpdate extends HookConsumerWidget {
                 //7
                 value: task.status,
               ),
+              TextField(
+                key: addTodoKey,
+                maxLines: 5,
+                minLines: 5,
+                controller: trackerController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  labelText: 'コメント',
+                  //この一行
+                  alignLabelWithHint: true,
+                  //labelText: 'What needs to be done?',
+                ),
+              ),
               ElevatedButton(
                 child: const Text('追加'),
                 style: ElevatedButton.styleFrom(
@@ -176,7 +191,7 @@ class TodoUpdate extends HookConsumerWidget {
                 ),
                 onPressed: () {
                   //ref.read(todoListProvider.notifier).add(titleController.text,noteController.text,statusSelected,progressSelected,selected,ref.watch(dateProvider));
-                  ref.read(taskUpdateProvider.notifier).edit(task,titleController.text,noteController.text);
+                  ref.read(taskUpdateProvider.notifier).edit(task,titleController.text,noteController.text,trackerController.text);
                   ref.read(todoListProvider.notifier).get();
                   ref.read(calenderListProvider.notifier).get();
                   titleController.clear();

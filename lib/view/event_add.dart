@@ -34,7 +34,7 @@ class EventAdd extends HookConsumerWidget {
     return  GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(title: Text("EventAdd")),
+        appBar: AppBar(title: Text("予定追加")),
         body: Scrollbar(
           child:ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
