@@ -5,6 +5,7 @@ import 'package:state_notifier/state_notifier.dart';
 
 import '../entity/event_entity.dart';
 import '../entity/todo_entity.dart';
+import '../entity/tracker_entity.dart';
 import '../translator/todo_translator.dart';
 
 @immutable
@@ -40,12 +41,14 @@ class CalenderModel extends StateNotifier<List<CalenderCell>> {
   Future<void> initGet() async {
     var entity = await TaskEntity.get();
     var evententity = await EventEntity.get();
-    state = CalenderTranslator.calenderConvert(entity,evententity);
+    var tracker = await TaskTrackerEntity.get();
+    state = CalenderTranslator.calenderConvert(entity,evententity,tracker);
   }
   Future<void> get() async {
     var entity = await TaskEntity.get();
     var evententity = await EventEntity.get();
-    state = CalenderTranslator.calenderConvert(entity,evententity);
+    var tracker = await TaskTrackerEntity.get();
+    state = CalenderTranslator.calenderConvert(entity,evententity,tracker);
   }
 
   Future<void> add(String description,DateTime targetDate) async {

@@ -6,9 +6,11 @@ import 'package:pro_sche/util/date_extention.dart';
 
 import '../entity/event_entity.dart';
 import '../entity/todo_entity.dart';
+import '../entity/tracker_entity.dart';
 
 class CalenderTranslator {
-  static List<CalenderCell> calenderConvert(List<TaskEntity> entityList,List<EventEntity> eventList) {
+  static List<CalenderCell> calenderConvert(List<TaskEntity> entityList,List<EventEntity> eventList,
+  List<TaskTrackerEntity> tackerList) {
     var calenderList = <CalenderCell>[];
 
 
@@ -22,7 +24,7 @@ class CalenderTranslator {
     for(var date in dates){
       var filteredList = entityList.where((e) => e.deadline == date).toList();
       var filteredEventList = eventList.where((e) => e.target_date == date).toList();
-      var todoModels = TodoTranslator.todoConvert(filteredList);
+      var todoModels = TodoTranslator.todoConvert(filteredList,tackerList);
       var cell = CalenderCell(targetDate: date, todoList: todoModels,eventList: filteredEventList);
       calenderList.add(cell);
     }

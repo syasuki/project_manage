@@ -61,19 +61,23 @@ class TaskList extends StateNotifier<List<Task>> {
   */
   Future<void> initGet() async {
     var entity = await TaskEntity.get();
-    state = TodoTranslator.todoConvert(entity);
+    var tracker = await TaskTrackerEntity.get();
+    state = TodoTranslator.todoConvert(entity,tracker);
   }
   Future<void> get() async {
     var entity = await TaskEntity.get();
-    state = TodoTranslator.todoConvert(entity);
+    var tracker = await TaskTrackerEntity.get();
+    state = TodoTranslator.todoConvert(entity,tracker);
   }
   Future<void> add(String title,String description,int status,int progress,int priority,DateTime targetDate) async {
     var entity = TaskEntity(title: title, note: description, status: status, progress: progress, priority: priority, section_id: 1, deadline: targetDate, created_at: DateExtention.dateOnlyNow(), updated_at: DateExtention.dateOnlyNow());
     await TaskEntity.insert(entity);
 
     var ret = await TaskEntity.get();
+
     //CalenderTranslator.todoConvert(ret);
-    state = TodoTranslator.todoConvert(ret);
+    var tracker = await TaskTrackerEntity.get();
+    state = TodoTranslator.todoConvert(ret,tracker);
   }
 
   void toggle(int id) {
@@ -104,13 +108,15 @@ class TaskList extends StateNotifier<List<Task>> {
     var entity = TodoTranslator.todoModelConvert(target,description);
     await TaskEntity.update(entity);
     var ret = await TaskEntity.get();
-    state = TodoTranslator.todoConvert(ret);
+    var tracker = await TaskTrackerEntity.get();
+    state = TodoTranslator.todoConvert(ret,tracker);
   }
 
   Future<void> remove(Task target) async {
     await TaskEntity.delete(target.id);
     var ret = await TaskEntity.get();
-    state = TodoTranslator.todoConvert(ret);
+    var tracker = await TaskTrackerEntity.get();
+    state = TodoTranslator.todoConvert(ret,tracker);
   }
 }
 
@@ -145,10 +151,10 @@ class TaskModel extends StateNotifier<Task> {
     var entity = TodoTranslator.taskModelConvert(task,title,note);
     await TaskEntity.update(entity);
     var ret = await TaskEntity.get();
-    var retList = TodoTranslator.todoConvert(ret);
+    var retTracker = await addTracker(task.id, tracker_comment);
+    var retList = TodoTranslator.todoConvert(ret,retTracker);
     var retfirst = retList.firstWhere((element) => element.id == task.id);
-    var retTracker = await addTracker(1, "note");
-    print(retTracker);
+
     state = retfirst;
   }
 
@@ -157,7 +163,7 @@ class TaskModel extends StateNotifier<Task> {
         task_id:task_id,
         note: note,
         created_at: DateExtention.dateOnlyNow(),
-    updated_at: DateExtention.dateOnlyNow(),);
+        updated_at: DateExtention.dateOnlyNow(),);
     await TaskTrackerEntity.insert(entity);
 
     var ret = await TaskTrackerEntity.get();

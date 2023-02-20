@@ -3,12 +3,23 @@ import 'package:pro_sche/model/task_tracker_model.dart';
 import 'package:pro_sche/util/date_extention.dart';
 
 import '../entity/todo_entity.dart';
+import '../entity/tracker_entity.dart';
 import '../model/todo_model.dart';
 
 class TodoTranslator {
-  static List<Task> todoConvert(List<TaskEntity> entityList) {
+  static List<Task> todoConvert(List<TaskEntity> entityList,List<TaskTrackerEntity> tackerList) {
     var todoList = <Task>[];
     for (var entity in entityList) {
+      List<TaskTracker> tackers = [];//tackerList.where((tacker) => tacker.id == entity.id).toList();
+
+      for (int i = 0; i < tackerList.length; i++) {
+        if (tackerList[i].task_id == entity.id) {
+          var targettracker = tackerList[i];
+          tackers.add(TaskTracker(id: targettracker.id, task_id: targettracker.task_id, note: targettracker.note,
+              created_at: targettracker.created_at, updated_at: targettracker.updated_at
+          ));
+        }
+      }
       var todo = Task(
         id: entity.id!,
         title: entity.title,
@@ -18,7 +29,7 @@ class TodoTranslator {
         progress: entity.progress,
         priority: entity.priority,
         event_id: entity.event_id,
-        trackers: <TaskTracker>[],
+        trackers: tackers,
         section_id: entity.section_id,
         created_at: entity.created_at,
         updated_at: entity.updated_at,
